@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sマーダー工業高校サイコスリラー「ポールの呪い」</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Hiragino Sans', 'Yu Gothic', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1cm 0;
+        }
+
+        .game-container {
+            width: 100%;
+            max-width: 400px;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 20px;
+        }
+
+        .title-screen {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #ff6b6b;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #ffa726;
+        }
+
+        .game-screen {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .story-area {
+            background: rgba(0,0,0,0.7);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            min-height: 200px;
+            border: 2px solid #444;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .character-name {
+            color: #4fc3f7;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .story-text {
+            line-height: 1.6;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .choices {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .choice-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .choice-btn:hover {
+            background: linear-gradient(45deg, #764ba2, #667eea);
+            border-color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .start-btn {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .start-btn:hover {
+            background: linear-gradient(45deg, #ee5a24, #ff6b6b);
+            transform: scale(1.05);
+        }
+
+        .next-btn {
+            background: linear-gradient(45deg, #26de81, #20bf6b);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 20px;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 15px;
+            align-self: center;
+        }
+
+        .death-scene {
+            background: linear-gradient(135deg, #c0392b, #8e44ad);
+            color: #fff;
+            text-align: center;
+            animation: pulse 2s infinite;
+        }
+
+        .happy-ending {
+            background: linear-gradient(135deg, #26de81, #20bf6b);
+            color: #fff;
+            text-align: center;
+            animation: sparkle 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.8; }
+            50% { opacity: 1; }
+            100% { opacity: 0.8; }
+        }
+
+        @keyframes sparkle {
+            0% { box-shadow: 0 0 20px rgba(38, 222, 129, 0.5); }
+            50% { box-shadow: 0 0 30px rgba(38, 222, 129, 0.8); }
+            100% { box-shadow: 0 0 20px rgba(38, 222, 129, 0.5); }
+        }
+
+        @media (max-width: 480px) {
+            .title {
+                font-size: 1.5rem;
+            }
+            .subtitle {
+                font-size: 1rem;
+            }
+            .story-text {
+                font-size: 0.95rem;
+            }
+            .game-container {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <!-- タイトル画面 -->
+        <div class="title-screen" id="titleScreen">
+            <div class="title">Sマーダー工業高校</div>
+            <div class="subtitle">サイコスリラー「ポールの呪い」</div>
+            <button class="start-btn" onclick="startGame()">ゲームスタート</button>
+        </div>
+
+        <!-- ゲーム画面 -->
+        <div class="game-screen" id="gameScreen">
+            <div class="story-area" id="storyArea">
+                <div class="character-name" id="characterName"></div>
+                <div class="story-text" id="storyText"></div>
+                <div class="choices" id="choices"></div>
+                <button class="next-btn" id="nextBtn" onclick="nextScene()" style="display: none;">次へ</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentScene = 0;
+        let gameState = 'start';
+        let playerChoices = [];
+
+        // 全シーンデータをひとつのオブジェクトに統合
+        const allScenes = {
+            // オープニング
+            opening: [
+                {
+                    character: "",
+                    text: "Sマーダー工業高校。今日もA木山は遅刻しそうになりながら校門をくぐった。しかし、いつもと何かが違う...空気が重い。",
+                    type: "story"
+                },
+                {
+                    character: "A木山",
+                    text: "うわあああ！遅刻する〜！どうやって教室に行こう？",
+                    type: "choice",
+                    choices: [
+                        { text: "階段を駆け上がる", next: "stairs" },
+                        { text: "エレベーターを使う", next: "elevator" },
+                        { text: "裏口から入る", next: "backgate" }
+                    ]
+                }
+            ],
+
+            // 階段ルート
+            stairs: [
+                {
+                    character: "",
+                    text: "階段を駆け上がるA木山。途中でO血合とばったり会った。",
+                    type: "story"
+                },
+                {
+                    character: "O血合",
+                    text: "あ、A木山！一緒に行こう！でも階段は危険だよ...転んだらどうする？",
+                    type: "story"
+                },
+                {
+                    character: "",
+                    text: "O血合の心配そうな表情。どう対応する？",
+                    type: "choice",
+                    choices: [
+                        { text: "心配してくれてありがとう", next: "classroom_entry" },
+                        { text: "なぜそんなに心配するの？", next: "classroom_entry" },
+                        { text: "急いでいるから先に行く", next: "classroom_entry" }
+                    ]
+                }
+            ],
+
+            // エレベーターループ
+            elevator: [
+                {
+                    character: "",
+                    text: "エレベーターに向かうA木山。中にはまQがいた。",
+                    type: "story"
+                },
+                {
+                    character: "まQ",
+                    text: "おはよう、A木山！僕と一緒にエレベーター？でも...閉じ込められたら危険だよね？",
+                    type: "story"
+                },
+                {
+                    character: "",
+                    text: "まQも妙に心配している。どう答える？",
+                    type: "choice",
+                    choices: [
+                        { text: "一緒に乗ろう", next: "classroom_entry" },
+                        { text: "なぜ危険だと思うの？", next: "classroom_entry" },
+                        { text: "やっぱり階段にする", next: "classroom_entry" }
+                    ]
+                }
+            ],
+
+            // 裏口ルート
+            backgate: [
+                {
+                    character: "",
+                    text: "裏口から入ろうとするA木山。そこにはO村とO蔵がいた。",
+                    type: "story"
+                },
+                {
+                    character: "O村",
+                    text: "おっ、A木山！裏口作戦？でも段差があって危険だぞ？",
+                    type: "story"
+                },
+                {
+                    character: "O蔵",
+                    text: "そうそう！転んだら大変！僕たちが先導するよ！",
+                    type: "story"
+                },
+                {
+                    character: "",
+                    text: "この二人も過保護だ。どうする？",
+                    type: "choice",
+                    choices: [
+                        { text: "先導してもらう", next: "classroom_entry" },
+                        { text: "なぜみんな僕を心配するの？", next: "classroom_entry" },
+                        { text: "一人で入る", next: "classroom_entry" }
+                    ]
+                }
+            ],
+
+            // 教室入室
+            classroom_entry: [
+                {
+                    character: "",
+                    text: "教室に入ると、クラスメイト全員がA木山の方を振り返った。そして...不気味に微笑んだ。",
+                    type: "story"
+                },
+                {
+                    character: "担任",
+                    text: "おはよう、A木山くん。今日は...特別な日だね。",
+                    type: "story"
+                },
+                {
+                    character: "O血合",
+                    text: "おはよう、A木山！僕、今日血液検査があるんだ！君の血液型、何型だっけ？",
+                    type: "story"
+                },
+                {
+                    character: "",
+                    text: "血液型を聞かれた。どう答える？",
+                    type: "choice",
+                    choices: [
+                        { text: "A型だよ", next: "morning_class" },
+                        { text: "なぜ血液型を聞くの？", next: "morning_class" },
+                        { text: "教えたくない", next: "morning_class" }
+                    ]
+                }
+            ],
+
+            // 午前の授業
+            morning_class: [
+                {
+                    character: "",
+                    text: "1時間目の授業中、A木山は妙な視線を感じていた。授業に集中できない。",
+                    type: "story"
+                },
+                {
+                    character: "まQ",
+                    text: "（小声で）A木山、放課後に大事な話があるんだ。君の命に関わることかもしれない...",
+                    type: "story"
+                },
+                {
+                    character: "",
+                    text: "2時間目が終わると、O村とO蔵が近づいてきた。",
+                    type: "story"
+                },
+                {
+                    character: "O村",
+                    text: "よお、A木山。今日の体調はどうだ？自転車の運転に支障はないよね？",
+                    type: "story"
+                },
+                {
+                    character: "",
+                    text: "自転車の話が出た。どう答える？",
+                    type: "choice",
+                    choices: [
+                        { text: "なぜ自転車のことを聞くの？", next: "lunch_time" },
+                        { text: "体調は問題ない", next: "lunch_time" },
+                        { text: "何か知ってるでしょ？", next: "lunch_time" }
+                    ]
+                }
+            ],
+
+            // 昼休み
+            lunch_time: [
+                {
+                    character: "",
+                    text: "昼休み。A木山は今朝からの違和感について考えていた。",
+                    type: "story"
+                },
+                {
+                    character: "握力",
+                    text: "A木山！今日はどこで昼食を取る？僕が君を完全にサポートするよ！",
+                    type: "story"
+                },
+                {
+                    character: "",
+                    text: "どこで昼食を取る？",
+                    type: "choice",
+                    choices: [
+                        { text: "食堂でまQと話す", next: "maq_talk" },
+                        { text: "屋上でO村・O蔵と話す", next: "ou_talk" },
+                        { text: "体育館で握力と話す", next: "grip_talk" },
+                        { text: "教室でK山・土Yと話す", next: "k_do_talk" }
+                    ]
+                }
+            ],
+
+            // まQとの会話
+            maq_talk: [
+                {
+                    character: "まQ",
+                    text: "やあA木山！僕の名前の由来知ってる？真のQuality...つまり真のクオリティの略なんだ！",
+                    type: "story"
+                },
+                {
+                    character: "A木山",
+                    text: "今朝から、みんなの様子がおかしいんだ。何か知らない？",
+                    type: "story"
+                },
+                {
+                    character: "まQ",
+                    text: "ああ...実は僕たちには使命があるんだ。君を守る使命が！",
+
+                    type: "story"
+                },
+                {
+                    character: "",
+                    text: "使命？どう反応する？",
+                    type: "choice",
+                    choices: [
+                        { text: "どんな使命？", next: "afternoon" },
+                        { text: "何から守るの？", next: "afternoon" },
+                        { text: "信じられない", next: "afternoon" }
+                    ]
+                }
+            ],
+
+            // O村・O蔵との会話
+            ou_talk: [
+                {
+                    character: "O村",
+                    text: "よお、A木山！俺たちの名前、なんか似てない？",
+                    type: "story"
+                },
+                {
+                    character: "O蔵",
+                    text: "そうそう！運命を感じるよね〜。でも君の名前はもっと特別だ。",
+                    type: "story"
+                },
+                {
+                    character: "A木山",
+                    text: "特別って何が？",
+                    type: "story"
+                },
+                {
+                    character: "O村",
+                    text: "『木山』という名前には...恐ろしい呪いがあるんだ。",
+                    type: "story"
+                },
+                {
+                    character: "",
+                    text: "呪い？どう答える？",
+                    type: "choice",
+                    choices: [
+                        { text: "どんな呪い？", next: "afternoon" },
+                        { text: "そんなの信じない", next: "afternoon" },
+                        { text: "詳しく教えて", next: "afternoon" }
+                    ]
+                }
+            ],
+
+            // 握力との会話
+            grip_talk: [
+                {
+                    character: "握力",
+                    text: "おっ、A木山！握力測定やろうぜ！",
+                    type: "story"
+                },
+                {
+                    character: "A木山",
+                    text: "なんで君はそんなに僕を守ろうとするの？",
+                    type: "story"
+                },
+                {
+                    character: "握力",
+                    text: "それは...この握力で君を絶対に守るって決めたからだ！何があっても！",
+                    type: "story"
+                },
+                {
+                    character: "",
+                    text: "握力が手本を見せると...バキッ！握力計が壊れた。",
+                    type: "story"
+                },
+                {
+                    character: "握力",
+                    text: "あ、やっちゃった...てへ☆",
+                    type: "story"
+                },
+                {
+                    character: "",
+                    text: "すごい握力だ。どう反応する？",
+                    type: "choice",
+                    choices: [
+                        { text: "すごい力だね", next: "afternoon" },
+                        { text: "何から守ってくれるの？", next: "afternoon" },
+                        { text: "その力で何ができるの？", next: "afternoon" }
+                    ]
+                }
+            ],
+
+            // K山・土Yとの会話
+            k_do_talk: [
+                {
+                    character: "K山",
+                    text: "A木山！僕、実は...実は君に言いたいことがあるんだ！",
+                    type: "story"
+                },
+                {
+                    character: "土Y",
+                    text: "待って！それ僕が言おうとしてたことだ！",
+                    type: "story"
+                },
+                {
+                    character: "K山",
+                    text: "君は最近、悪い夢とか見てない？自転車に関する夢とか...",
+                    type: "story"
+                },
+                {
+                    character: "土Y",
+                    text: "特にポールとか...！",
+                    type: "story"
+                },
+                {
+                    character: "",
+                    text: "ポール？確かに最近変な夢を見る。どう答える？",
+                    type: "choice",
+                    choices: [
+                        { text: "実は変な夢を見るんだ", next: "afternoon" },
+                        { text: "なんで君たちがそれを知ってるの？", next: "afternoon" },
+                        { text: "ポールって何のこと？", next: "afternoon" }
+                    ]
+                }
+            ],
+
+            // 午後
+            afternoon: [
+                {
+                    character: "",
+                    text: "放課後。A木山は今日一日の出来事を振り返っていた。真相を探るべきだ。",
+                    type: "story"
+                },
+                {
+                    character: "",
+                    text: "どこで真相を探る？",
+                    type: "choice",
+                    choices: [
+                        { text: "図書館で調べる", next: "library" },
+                        { text: "みんなを集めて直接聞く", next: "direct_ask" },
+                        { text: "一人で考える", next: "think_alone" }
+                    ]
+                }
+            ],
+
+            // 図書館
+            library: [
+                {
+                    character: "",
+                    text: "図書館で古い新聞を調べるA木山。そこで驚くべき記事を発見した。",
+                    type: "story"
+                },
+                {
+                    character: "A木山",
+                    text: "『30年前、A木山太郎が自転車で帰宅中、電柱に激突して死亡』...『20年前、B木山花子』...『10年前、C木山一郎』...",
+                    type: "story"
+                },
+                {
+                    character: "",
+                    text: "全員、同じ場所のポールで事故死している。そして今年は...",
+                    type: "story"
+                },
+                {
+                    character: "",
+                    text: "真相が分かった。どうする？",
+                    type: "choice",
+                    choices: [
+                        { text: "みんなに確認する", next: "revelation" },
+                        { text: "一人で帰宅する", next: "revelation" },
+                        { text: "今日は帰らない", next: "revelation" }
+                    ]
+                }
+            ],
+
+            // 直接質問
+            direct_ask: [
+                {
+                    character: "",
+                    text: "A木山はクラスメイト全員を集めた。",
+                    type: "story"
+                },
+                {
+                    character: "A木山",
+                    text: "みんな、今日は何か隠してるよね？正直に教えて。",
+                    type: "story"
+                },
+                {
+                    character: "O血合",
+                    text: "もう隠しても仕方ないか...",
+                    type: "story"
+                },
+                {
+                    character: "",
+                    text: "ついに白状する気になったようだ。",
+                    type: "choice",
+                    choices: [
+                        { text: "全部教えて", next: "revelation" },
+                        { text: "僕に関係あるの？", next: "revelation" },
+                        { text: "やっぱりそうだったのか", next: "revelation" }
+                    ]
+                }
+            ],
+
+            // 一人で考える
+            think_alone: [
+                {
+                    character: "",
+                    text: "A木山は一人で今日の出来事を整理した。みんなの行動、不自然な心配、自転車への言及...",
+                    type: "story"
+                },
+                {
+                    character: "A木山",
+                    text: "まさか...僕に何か危険が迫ってるってこと？",
+                    type: "story"
+                },
+                {
+                    character: "",
+                    text: "その時、クラスメイト全員が教室に入ってきた。",
+                    type: "story"
+                },
+                {
+                    character: "全員",
+                    text: "A木山...話があるんだ。",
+                    type: "story"
+                },
+                {
+                    character: "",
+                    text: "ついに真相を話してくれるらしい。",
+                    type: "choice",
+                    choices: [
+                        { text: "聞かせて", next: "revelation" },
+                        { text: "薄々気づいてた", next: "revelation" },
+                        { text: "怖いけど知りたい", next: "revelation" }
+                    ]
+                }
+            ],
+
+            // 真相判明
+            revelation: [
+                {
+                    character: "O血合",
+                    text: "もう隠してもしょうがないね。実は僕たちみんな、『A木山を安全に家まで帰らせる委員会』のメンバーなんだ。",
+                    type: "story"
+                },
+                {
+                    character: "まQ",
+                    text: "この学校には30年前から呪いがあるんだ！",
+                    type: "story"
+                },
+                {
+                    character: "握力",
+                    text: "10年おきに『木山』という名前の生徒が帰り道でポールにぶつかって死ぬ！",
+                    type: "story"
+                },
+                {
+                    character: "O村",
+                    text: "A木山太郎、B木山花子、C木山一郎...そして今度は君の番！",
+                    type: "story"
+                },
+                {
+                    character: "K山",
+                    text: "僕たちは君を絶対に死なせない！",
+                    type: "story"
+                },
+                {
+                    character: "土Y",
+                    text: "今日こそ呪いを打ち破るんだ！",
+                    type: "story"
+                },
+                {
+                    character: "",
+                    text: "いよいよ帰宅時間。どうする？",
+                    type: "choice",
+                    choices: [
+                        { text: "みんなと一緒に帰る", next: "go_home" },
+                        { text: "一人で帰る", next: "go_home" },
+                        { text: "今日は学校に残る", next: "go_home" },
+                        { text: "家族に迎えを頼む", next: "go_home" }
+                    ]
+                }
+            ],
+
+            // 帰宅開始
+            go_home: [
+                {
+                    character: "",
+                    text: "結局、A木山は一人で帰ることにした。しかし...",
+                    type: "story"
+                },
+                {
+                    character: "",
+                    text: "「待ってくれ！」誰かが追いかけてきた。",
+                    type: "story"
+                },
+                {
+                    character: "",
+                    text: "振り返ると...",
+                    type: "story"
+                },
+                {
+                    character: "",
+                    text: "ランダムで決まる同行者...",
+                    type: "random_companion"
+                }
+            ],
+
+            // 握力ハッピーエンド
+            happy_ending: [
+                {
+                    character: "握力",
+                    text: "A木山！一人で帰るなんて危険すぎる！僕がついて行く！",
+                    type: "story"
+                },
+                {
+                    character: "A木山",
+                    text: "握力...ありがとう。",
+                    type: "story"
+                },
+                {
+                    character: "",
+                    text: "そして例のポールが見えてきた。",
+                    type: "story"
+                },
+                {
+                    character: "A木山",
+                    text: "あれが...呪いのポール。",
+                    type: "story"
+                },
+                {
+                    character: "握力",
+                    text: "任せろ！僕の握力でこのポールを...！",
+                    type: "story"
+                },
+                {
+                    character: "",
+                    text: "握力がポールを掴んだ瞬間！",
+                    type: "story"
+                },
+                {
+                    character: "握力",
+                    text: "うおおおおお！",
+                    type: "story"
+                },
+                {
+                    character: "",
+                    text: "メキメキメキ...！ポールが握りつぶされていく！",
+                    type: "story",
+                    isHappyScene: true
+                },
+                {
+                    character: "握力",
+                    text: "やったあああ！ポールを破壊した！",
+                    type: "story",
+                    isHappyScene: true
+                },
+                {
+                    character: "A木山",
+                    text: "すごい！握力、君が僕を救ってくれたんだ！",
+                    type: "story",
+                    isHappyScene: true
+                },
+                {
+                    character: "",
+                    text: "HAPPY END - 握力の超人的な力で呪いが打ち破られた！",
+                    type: "ending"
+                }
+            ],
+
+            // その他のキャラクターエンド
+            o_ketsugo_end: [
+                {
+                    character: "O血合",
+                    text: "A木山！一人は危険だ！僕がついて行く！",
+                    type: "story"
+                },
+                {
+                    character: "",
+                    text: "O血合と一緒に帰宅。ポールが見えてきた時...",
+                    type: "story"
+                },
+                {
+                    character: "O血合",
+                    text: "危ない！ポールだ！",
+                    type: "story"
+                },
+                {
+                    character: "",
+                    text: "O血合の叫び声に驚いてハンドルを切り損ねた。ガシャーン！",
+                    type: "story",
+                    isDeathScene: true
+                },
+                {
+                    character: "A木山",
+                    text: "く、空気がない......",
+                    type: "story",
+                    isDeathScene: true
+                },
+                {
+                    character: "",
+                    text: "BAD END - O血合の心配が裏目に出た",
+                    type: "ending"
+                }
+            ],
+
+            maq_end: [
+                {
+                    character: "まQ",
+                    text: "A木山！Quality護衛を発動する！僕がついて行く！",
+                    type: "story"
+                },
+                {
+                    character: "",
+                    text: "まQと一緒に帰宅。ポールの前でまQがダンスを始めた。",
+                    type: "story"
+                },
+                {
+                    character: "まQ",
+                    text: "Quality Dance！君を守る踊り！",
+
+                    type: "story"
+                },
+                {
+                    character: "",
+                    text: "しかし踊りに気を取られ、A木山はポールに激突！ガシャーン！",
+                    type: "story",
+                    isDeathScene: true
+                },
+                {
+                    character: "A木山",
+                    text: "く、空気がない......",
+                    type: "story",
+                    isDeathScene: true
+                },
+                {
+                    character: "",
+                    text: "BAD END - Quality Danceは効果がなかった",
+                    type: "ending"
+                }
+            ],
+
+            o_mura_end: [
+                {
+                    character: "O村",
+                    text: "A木山！運命を変えるために僕がついて行く！",
+                    type: "story"
+                },
+                {
+                    character: "",
+                    text: "O村と一緒に帰宅。ポールが見えてきた時...",
+                    type: "story"
+                },
+                {
+                    character: "O村",
+                    text: "俺が先に行って安全確認する！",
+                    type: "story"
+                },
+                {
+                    character: "",
+                    text: "しかしO村が転倒。それに巻き込まれてA木山もポールに激突！ガシャーン！",
+                    type: "story",
+                    isDeathScene: true
+                },
+                {
+                    character: "A木山",
+                    text: "く、空気がない......",
+                    type: "story",
+                    isDeathScene: true
+                },
+                {
+                    character: "",
+                    text: "BAD END - O村の作戦は失敗だった",
+                    type: "ending"
+                }
+            ],
+
+            o_zou_end: [
+                {
+                    character: "O蔵",
+                    text: "A木山！僕が絶対に守る！ついて行く！",
+                    type: "story"
+                },
+                {
+                    character: "",
+                    text: "O蔵と一緒に帰宅。ポールの前でO蔵が盾になろうとした。",
+                    type: "story"
+                },
+                {
+                    character: "O蔵",
+                    text: "僕が壁になる！",
+                    type: "story"
+                },
+                {
+                    character: "",
+                    text: "しかしO蔵が邪魔になり、A木山は避けきれずポールに激突！ガシャーン！",
+                    type: "story",
+                    isDeathScene: true
+                },
+                {
+                    character: "A木山",
+                    text: "く、空気がない......",
+                    type: "story",
+                    isDeathScene: true
+                },
+                {
+                    character: "",
+                    text: "BAD END - O蔵の盾作戦は裏目に出た",
+                    type: "ending"
+                }
+            ],
+
+            k_yama_end: [
+                {
+                    character: "K山",
+                    text: "A木山！危険を察知する僕がついて行く！",
+                    type: "story"
+                },
+                {
+                    character: "",
+                    text: "K山と一緒に帰宅。ポールが見えてきた時...",
+                    type: "story"
+                },
+                {
+                    character: "K山",
+                    text: "危険だ！今すぐ右に！",
+                    type: "story"
+                },
+                {
+                    character: "",
+                    text: "しかし右に避けた瞬間、対向車が！慌てて左に戻るとポールが！ガシャーン！",
+                    type: "story",
+                    isDeathScene: true
+                },
+                {
+                    character: "A木山",
+                    text: "く、空気がない......",
+                    type: "story",
+                    isDeathScene: true
+                },
+                {
+                    character: "",
+                    text: "BAD END - K山の指示が混乱を招いた",
+                    type: "ending"
+                }
+            ],
+
+            do_y_end: [
+                {
+                    character: "土Y",
+                    text: "A木山！僕の運の良さで君を守る！ついて行く！",
+                    type: "story"
+                },
+                {
+                    character: "",
+                    text: "土Yと一緒に帰宅。ポールが見えてきた時...",
+                    type: "story"
+                },
+                {
+                    character: "土Y",
+                    text: "僕の運のパワーで...あれ？今日は運が悪い日だった！",
+                    type: "story"
+                },
+                {
+                    character: "",
+                    text: "その瞬間、運悪く風が吹いてA木山がポールに激突！ガシャーン！",
+                    type: "story",
+                    isDeathScene: true
+                },
+                {
+                    character: "A木山",
+                    text: "く、空気がない......",
+                    type: "story",
+                    isDeathScene: true
+                },
+                {
+                    character: "",
+                    text: "BAD END - 土Yの運も今日は効果なし",
+                    type: "ending"
+                }
+            ],
+
+            // エピローグ
+            epilogue: [
+                {
+                    character: "",
+                    text: "翌日、Sマーダー工業高校に新しい転校生がやってきた。",
+                    type: "story"
+                },
+                {
+                    character: "新転校生",
+                    text: "はじめまして！E木山です！よろしくお願いします！",
+                    type: "story"
+                },
+                {
+                    character: "全員",
+                    text: "ええええええ！！！また木山！？",
+                    type: "story"
+                },
+                {
+                    character: "",
+                    text: "そして『E木山を安全に家まで帰らせる委員会』が再び始動するのであった...",
+                    type: "story"
+                },
+                {
+                    character: "",
+                    text: "TO BE CONTINUED...",
+                    type: "ending"
+                }
+            ]
+        };
+
+        let currentSceneData = allScenes.opening;
+        let currentIndex = 0;
+
+        function startGame() {
+            document.getElementById('titleScreen').style.display = 'none';
+            document.getElementById('gameScreen').style.display = 'flex';
+            showScene();
+        }
+
+        function showScene() {
+            const scene = currentSceneData[currentIndex];
+            
+            if (!scene) {
+                return;
+            }
+
+            const storyArea = document.getElementById('storyArea');
+            const characterName = document.getElementById('characterName');
+            const storyText = document.getElementById('storyText');
+            const choices = document.getElementById('choices');
+            const nextBtn = document.getElementById('nextBtn');
+
+            // シーンの特殊演出
+            if (scene.isDeathScene) {
+                storyArea.classList.add('death-scene');
+                storyArea.classList.remove('happy-ending');
+            } else if (scene.isHappyScene) {
+                storyArea.classList.add('happy-ending');
+                storyArea.classList.remove('death-scene');
+            } else {
+                storyArea.classList.remove('death-scene', 'happy-ending');
+            }
+
+            // キャラクター名の表示制御
+            if (scene.character === "") {
+                characterName.style.display = 'none';
+            } else {
+                characterName.style.display = 'block';
+                characterName.textContent = scene.character;
+            }
+            
+            storyText.textContent = scene.text;
+            choices.innerHTML = '';
+
+            if (scene.type === 'choice') {
+                nextBtn.style.display = 'none';
+                scene.choices.forEach((choice, index) => {
+                    const button = document.createElement('button');
+                    button.className = 'choice-btn';
+                    button.textContent = choice.text;
+                    button.onclick = () => selectChoice(choice.next);
+                    choices.appendChild(button);
+                });
+            } else if (scene.type === 'random_companion') {
+                // ランダム同行者選択
+                selectRandomCompanion();
+                return;
+            } else if (scene.type === 'ending') {
+                nextBtn.style.display = 'none';
+                
+                // ハッピーエンドでない場合のみエピローグボタンを表示
+                if (!scene.isHappyScene) {
+                    const epilogueBtn = document.createElement('button');
+                    epilogueBtn.className = 'choice-btn';
+                    epilogueBtn.textContent = 'エピローグを見る';
+                    epilogueBtn.onclick = () => showEpilogue();
+                    choices.appendChild(epilogueBtn);
+                }
+                
+                const titleBtn = document.createElement('button');
+                titleBtn.className = 'choice-btn';
+                titleBtn.textContent = 'タイトルに戻る';
+                titleBtn.onclick = () => location.reload();
+                choices.appendChild(titleBtn);
+            } else {
+                nextBtn.style.display = 'block';
+            }
+        }
+
+        function nextScene() {
+            currentIndex++;
+            if (currentIndex >= currentSceneData.length) {
+                return;
+            }
+            showScene();
+        }
+
+        function selectChoice(nextSceneKey) {
+            if (allScenes[nextSceneKey]) {
+                currentSceneData = allScenes[nextSceneKey];
+                currentIndex = 0;
+                showScene();
+            }
+        }
+
+        function selectRandomCompanion() {
+            // 握力の確率を低く設定（10%）、他は各15%
+            const random = Math.random();
+            let selectedEnding;
+            
+            if (random < 0.1) {
+                selectedEnding = 'happy_ending';
+            } else if (random < 0.25) {
+                selectedEnding = 'o_ketsugo_end';
+            } else if (random < 0.4) {
+                selectedEnding = 'maq_end';
+            } else if (random < 0.55) {
+                selectedEnding = 'o_mura_end';
+            } else if (random < 0.7) {
+                selectedEnding = 'o_zou_end';
+            } else if (random < 0.85) {
+                selectedEnding = 'k_yama_end';
+            } else {
+                selectedEnding = 'do_y_end';
+            }
+            
+            currentSceneData = allScenes[selectedEnding];
+            currentIndex = 0;
+            showScene();
+        }
+
+        function showEpilogue() {
+            currentSceneData = allScenes.epilogue;
+            currentIndex = 0;
+            showScene();
+        }
+    </script>
+</body>
+</html>
