@@ -1,0 +1,2658 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sマーダー工業高校サイコスリラー「ポールの呪い」</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: white;
+            font-family: 'Hiragino Sans', 'Yu Gothic', Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 1cm 0;
+            box-sizing: border-box;
+            transition: all 0.5s ease;
+        }
+        .container {
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            padding: 20px;
+            background: rgba(0,0,0,0.8);
+            border-radius: 15px;
+            border: 3px solid #444;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 30px rgba(255, 107, 107, 0.3);
+        }
+        .title {
+            font-size: 1.8rem;
+            color: #ff6b6b;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-weight: bold;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+        .subtitle {
+            font-size: 1.2rem;
+            color: #ffa726;
+            margin-bottom: 30px;
+            animation: subtitlePulse 2s ease-in-out infinite;
+        }
+        .start-btn {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin: 20px;
+            transition: all 0.3s;
+            animation: buttonFloat 2s ease-in-out infinite;
+        }
+        .start-btn:hover {
+            transform: scale(1.1) rotate(2deg);
+            background: linear-gradient(45deg, #ee5a24, #ff6b6b);
+            box-shadow: 0 0 20px rgba(255, 107, 107, 0.7);
+        }
+        .choice-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            margin: 5px 0;
+            display: block;
+            width: 100%;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            box-sizing: border-box;
+            position: relative;
+            overflow: hidden;
+        }
+        .choice-btn:hover {
+            background: linear-gradient(45deg, #764ba2, #667eea);
+            border-color: #fff;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 5px 15px rgba(118, 75, 162, 0.4);
+        }
+        .choice-btn:active {
+            transform: translateY(-1px) scale(0.98);
+        }
+        .character-name {
+            color: #4fc3f7;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+            animation: nameGlow 2s ease-in-out infinite alternate;
+        }
+        .story-text {
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            animation: textFadeIn 0.8s ease-in;
+        }
+        .death-scene {
+            background: linear-gradient(135deg, #c0392b, #8e44ad);
+            animation: deathPulse 1.5s infinite;
+            border-color: #ff0000;
+            box-shadow: 0 0 50px rgba(192, 57, 43, 0.8);
+        }
+        .happy-scene {
+            background: linear-gradient(135deg, #26de81, #20bf6b);
+            animation: sparkle 2s infinite;
+            border-color: #00ff00;
+            box-shadow: 0 0 50px rgba(38, 222, 129, 0.8);
+        }
+        .tension-scene {
+            background: linear-gradient(135deg, #f39c12, #e74c3c);
+            animation: tensionShake 0.3s infinite;
+            border-color: #ff6b00;
+        }
+        .mystery-scene {
+            background: linear-gradient(135deg, #8e44ad, #2c3e50);
+            animation: mysteryFlicker 2s infinite;
+            border-color: #9b59b6;
+        }
+        .danger-scene {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            animation: dangerBlink 1s infinite;
+            border-color: #ff0000;
+        }
+        @keyframes titleGlow {
+            0% { text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 10px rgba(255, 107, 107, 0.5); }
+            100% { text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 20px rgba(255, 107, 107, 1); }
+        }
+        @keyframes subtitlePulse {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+        @keyframes buttonFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+        @keyframes nameGlow {
+            0% { text-shadow: 1px 1px 3px rgba(0,0,0,0.7), 0 0 5px rgba(79, 195, 247, 0.5); }
+            100% { text-shadow: 1px 1px 3px rgba(0,0,0,0.7), 0 0 15px rgba(79, 195, 247, 1); }
+        }
+        @keyframes textFadeIn {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes deathPulse {
+            0% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.02); }
+            100% { opacity: 0.7; transform: scale(1); }
+        }
+        @keyframes sparkle {
+            0% { box-shadow: 0 0 20px rgba(38, 222, 129, 0.5); }
+            50% { box-shadow: 0 0 40px rgba(38, 222, 129, 1); }
+            100% { box-shadow: 0 0 20px rgba(38, 222, 129, 0.5); }
+        }
+        @keyframes tensionShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-2px); }
+            75% { transform: translateX(2px); }
+        }
+        @keyframes mysteryFlicker {
+            0%, 100% { opacity: 0.9; }
+            50% { opacity: 0.7; }
+        }
+        @keyframes dangerBlink {
+            0%, 100% { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+            50% { background: linear-gradient(135deg, #c0392b, #8e44ad); }
+        }
+        @media (max-width: 480px) {
+            .container {
+                max-width: 95%;
+                padding: 15px;
+            }
+            .title {
+                font-size: 1.5rem;
+            }
+            .subtitle {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="gameContainer">
+        <div id="titleScreen">
+            <div class="title">Sマーダー工業高校</div>
+            <div class="subtitle">サイコスリラー「ポールの呪い」</div>
+            <button class="start-btn" onclick="startGame()">ゲームスタート</button>
+        </div>
+        <div id="gameScreen" style="display: none;">
+            <div class="character-name" id="characterName"></div>
+            <div class="story-text" id="storyText"></div>
+            <div id="choices"></div>
+        </div>
+    </div>
+
+    <script>
+        let gameState = 'start';
+        let suspicionLevel = 0;
+        let allyCount = 0;
+        let escapeAttempts = 0;
+
+        function startGame() {
+            document.getElementById('titleScreen').style.display = 'none';
+            document.getElementById('gameScreen').style.display = 'block';
+            changeAtmosphere('mystery');
+            showOpening();
+        }
+
+        function changeAtmosphere(type) {
+            const container = document.getElementById('gameContainer');
+            container.className = 'container';
+            setTimeout(() => {
+                container.className = `container ${type}-scene`;
+            }, 100);
+        }
+
+        function updateDisplay(characterName, storyText, choices) {
+            document.getElementById('characterName').textContent = characterName;
+            document.getElementById('characterName').style.display = characterName ? 'block' : 'none';
+            document.getElementById('storyText').textContent = storyText;
+            
+            const choicesDiv = document.getElementById('choices');
+            choicesDiv.innerHTML = '';
+            
+            choices.forEach(choice => {
+                const button = document.createElement('button');
+                button.className = 'choice-btn';
+                button.textContent = choice.text;
+                button.onclick = choice.action;
+                choicesDiv.appendChild(button);
+            });
+
+            // テキスト表示アニメーション
+            const storyTextElement = document.getElementById('storyText');
+            storyTextElement.style.opacity = '0';
+            setTimeout(() => {
+                storyTextElement.style.opacity = '1';
+            }, 100);
+        }
+
+        function showOpening() {
+            updateDisplay('',
+                '霧深い山間部にあるSマーダー工業高校。朝7時30分、A木山は重い足取りで校門に向かった。昨夜見た悪夢が頭から離れない...自分がポールに激突する夢を。',
+                [
+                    { text: '悪夢について考える', action: () => contemplateNightmare() },
+                    { text: '夢なんて気にしない', action: () => ignoreDream() },
+                    { text: '周囲を警戒する', action: () => stayAlert() }
+                ]
+            );
+        }
+
+        function contemplateNightmare() {
+            suspicionLevel += 2;
+            updateDisplay('A木山',
+                'あの夢...やけにリアルだった。血の匂いまで感じたし、最後の「空気がない」という感覚も...まさか予知夢？いや、そんなバカな。でも...',
+                [
+                    { text: '校門で立ち止まって観察', action: () => observeGate() },
+                    { text: '急いで教室に向かう', action: () => rushToClass() },
+                    { text: '保健室に行く', action: () => visitNurse() }
+                ]
+            );
+        }
+
+        function ignoreDream() {
+            suspicionLevel += 1;
+            updateDisplay('A木山',
+                'ただの夢だ。気にしてたら負けだ！今日も普通の一日が始まる...はず。でも、なんで校門の前に人だかりが？',
+                [
+                    { text: '人だかりに近づく', action: () => approachCrowd() },
+                    { text: '人だかりを避けて裏門から入る', action: () => useBackGate() },
+                    { text: '様子を見る', action: () => observeFromDistance() }
+                ]
+            );
+        }
+
+        function stayAlert() {
+            suspicionLevel += 3;
+            changeAtmosphere('tension');
+            updateDisplay('A木山',
+                '何かがおかしい。校門の前を通る生徒たちが、みんな僕の方をチラチラ見てる。そして...なんで朝からあんなに楽しそうなんだ？普通朝は眠そうなはずなのに。',
+                [
+                    { text: '直接生徒に質問する', action: () => askStudentDirectly() },
+                    { text: '隠れて様子を観察', action: () => hideAndObserve() },
+                    { text: '先生に相談する', action: () => consultTeacher() }
+                ]
+            );
+        }
+
+        function observeGate() {
+            suspicionLevel += 2;
+            updateDisplay('A木山',
+                '校門の柱に見慣れない花束がある。近づいてみると...『A木山太郎 享年16歳』『B木山花子 享年16歳』『C木山一郎 享年16歳』全員同じ名字！しかも死亡日付が10年おき...これは何かの冗談？',
+                [
+                    { text: '花束の下を詳しく調べる', action: () => investigateFlowersDeep() },
+                    { text: '周りに人がいないか確認する', action: () => checkForWitnesses() },
+                    { text: '写真を撮って証拠を残す', action: () => takePhoto() }
+                ]
+            );
+        }
+
+        function investigateFlowersDeep() {
+            suspicionLevel += 3;
+            changeAtmosphere('danger');
+            updateDisplay('A木山',
+                '花束の下から古い新聞の切り抜きと手書きのメモが出てきた。『木山家の呪い30年間継続中』『次のターゲット：D木山（現在16歳）』『実行予定日：本日17:30』『実行場所：通学路電柱No.13』...これは殺人予告だ！',
+                [
+                    { text: '急いで教室に向かう', action: () => rushToClassroomWorried() },
+                    { text: '証拠を持って逃げる', action: () => escapeWithEvidence() }
+                ]
+            );
+        }
+
+                function rushToClassroomWorried() {
+            suspicionLevel += 1;
+            changeAtmosphere('mystery');
+            updateDisplay('',
+                '教室のドアを開けると...クラス全員が僕の方を向いて座っていた。全員が不気味に微笑んでいる。黒板には『D木山追悼式準備委員会』と書かれている。',
+                [
+                    { text: '黒板の文字について質問する', action: () => askAboutBlackboard() },
+                    { text: '自分の席に座る', action: () => sitDown() },
+                    { text: 'クラス全体に向かって抗議する', action: () => protestToClass() }
+                ]
+            );
+        }
+
+        function escapeWithEvidence() {
+            escapeAttempts += 1;
+            updateDisplay('A木山',
+                '証拠を握りしめて走る！でも背後から足音が...振り返ると、クラスメイトたちが不気味な笑顔で追いかけてくる！',
+                [
+                    { text: '必死に逃げる', action: () => desperateEscape() },
+                    { text: '立ち向かう', action: () => confrontChasers() },
+                    { text: '隠れる', action: () => hideFromChasers() }
+                ]
+            );
+        }
+
+        function desperateEscape() {
+            escapeAttempts += 2;
+            changeAtmosphere('danger');
+            updateDisplay('A木山',
+                '必死に走ったが...あれ？また校門前にいる。さっき走って逃げたのに、なぜここに？まるで学校から出られないみたいだ...',
+                [
+                    { text: '諦めて学校に入る', action: () => enterSchoolDefeated() }
+                ]
+            );
+        }
+
+        function enterSchoolDefeated() {
+            suspicionLevel += 2;
+            updateDisplay('A木山',
+                '逃げるのは無駄なのか...でも諦めるわけにはいかない。学校の中で何か手がかりを見つけよう。',
+                [
+                    { text: '教室に向かう', action: () => rushToClassroomWorried() }
+                ]
+            );
+        }
+
+        function askAboutBlackboard() {
+            suspicionLevel += 2;
+            updateDisplay('担任',
+                'おはよう、A木山くん♪ 今日は君の追悼式の準備で忙しいのよ♪ 花輪の準備、弔辞の作成、写真撮影の担当決め...みんな君のために頑張ってるの♪',
+                [
+                    { text: '追悼式の詳細を聞く', action: () => askMemorialDetails() },
+                    { text: '弔辞の内容を聞く', action: () => askEulogyContent() },
+                    { text: '抗議する', action: () => protestMemorial() }
+                ]
+            );
+        }
+
+        function askMemorialDetails() {
+            suspicionLevel += 2;
+            updateDisplay('担任',
+                '君が死んだ後、すぐに学校で追悼式をするの♪ 棺桶はもう用意してあるし、君の遺影も作成済みよ♪ ああ、でも君はまだ生きてるから遺影じゃなくて...死ぬ予定影？',
+                [
+                    { text: '遺影を見せてもらう', action: () => askToSeePhoto() },
+                    { text: '棺桶を見せてもらう', action: () => askToSeeCoffin() },
+                    { text: 'クラスメイトに話しかける', action: () => talkToClassmates() }
+                ]
+            );
+        }
+
+        function talkToClassmates() {
+            suspicionLevel += 1;
+            updateDisplay('A木山',
+                'みんな、どうして僕が死ぬって決めつけてるんだ？僕は死ぬつもりなんてない！',
+                [
+                    { text: 'まQに話しかける', action: () => talkToMaQ() },
+                    { text: 'O村に話しかける', action: () => talkToOMura() },
+                    { text: '握力に話しかける', action: () => talkToGrip() }
+                ]
+            );
+        }
+
+        function talkToMaQ() {
+            suspicionLevel += 2;
+            changeAtmosphere('tension');
+            updateDisplay('まQ',
+                'Quality（質）の高い質問ね♪ でも答えは簡単♪ 君が死ぬのは決定事項だから♪ 僕はQuality（質）の高い死を演出する担当よ♪ 君の死に様をQuality（質）の高い芸術作品にしてあげる♪',
+                [
+                    { text: 'Quality演出について詳しく聞く', action: () => askQualityDetails() },
+                    { text: 'なぜ決定事項なのか聞く', action: () => askWhyDecided() },
+                    { text: '他のクラスメイトに話しかける', action: () => talkToOthers() }
+                ]
+            );
+        }
+
+        function talkToOthers() {
+            updateDisplay('',
+                '他のクラスメイトとも話してみよう...',
+                [
+                    { text: 'O村に話しかける', action: () => talkToOMura() },
+                    { text: '握力に話しかける', action: () => talkToGrip() },
+                    { text: 'O蔵に話しかける', action: () => talkToOZou() }
+                ]
+            );
+        }
+
+        function talkToOMura() {
+            suspicionLevel += 2;
+            changeAtmosphere('danger');
+            updateDisplay('O村',
+                'A木山〜♪ 俺はお前の死体観察係だ♪ 死んだ後のお前をじっくり観察して、レポートを書くんだ♪ 『D木山の死体観察日記』ってタイトルでさ♪',
+                [
+                    { text: '死体観察について詳しく聞く', action: () => askBodyObservation() },
+                    { text: 'レポートの内容を聞く', action: () => askReportContent() },
+                    { text: '握力に話しかける', action: () => talkToGrip() }
+                ]
+            );
+        }
+
+        function talkToGrip() {
+            allyCount += 1;
+            updateDisplay('A木山',
+                '握力の表情を見ると...他のクラスメイトと明らかに違う。心配そうで、何か考え込んでいる。',
+                [
+                    { text: '握力にそっと話しかける', action: () => whisperToGrip() },
+                    { text: '握力の様子をもう少し観察する', action: () => observeGripMore() },
+                    { text: '他のクラスメイトに話しかける', action: () => talkToOZou() }
+                ]
+            );
+        }
+
+        function whisperToGrip() {
+            allyCount += 2;
+            updateDisplay('握力',
+                '（小声で）A木山...俺だけはお前の味方だ。後で体育館に来い。みんなには内緒だ。俺には計画がある。',
+                [
+                    { text: '計画について詳しく聞く', action: () => askGripPlan() },
+                    { text: '体育館で会う約束をする', action: () => promiseToMeetGrip() },
+                    { text: '本当に信用していいか確認する', action: () => confirmGripTrust() }
+                ]
+            );
+        }
+
+        function askGripPlan() {
+            allyCount += 1;
+            updateDisplay('握力',
+                '（小声で）俺の握力は120kgあるんだ。あの呪いのポールを破壊すれば、この狂った伝統を終わらせられる。でも今は周りの目があるから詳しくは話せない。',
+                [
+                    { text: '体育館で詳しく話すことを約束', action: () => promiseDetailedTalk() },
+                    { text: '他に協力者がいるか聞く', action: () => askOtherAllies() },
+                    { text: '体育館に向かう', action: () => headToGym() }
+                ]
+            );
+        }
+
+        function promiseDetailedTalk() {
+            allyCount += 1;
+            updateDisplay('握力',
+                '（小声で）わかった。でも気をつけろ。みんなお前を監視してる。不審な行動をしたらすぐにバレる。',
+                [
+                    { text: '体育館に向かう', action: () => headToGym() },
+                    { text: '授業を普通に受ける振りをする', action: () => pretendNormalClass() }
+                ]
+            );
+        }
+
+        function headToGym() {
+            allyCount += 1;
+            changeAtmosphere('mystery');
+            updateDisplay('',
+                '体育館に向かう途中、廊下で不気味な張り紙を発見。『D木山処刑観賞会 本日17:30』『死体写真コンテスト開催』『木山の最期の言葉予想大会』学校全体が僕の死をイベント化している...',
+                [
+                    { text: '張り紙を詳しく読む', action: () => readPostersCarefully() },
+                    { text: '急いで体育館に向かう', action: () => rushToGym() }
+                ]
+            );
+        }
+
+        function rushToGym() {
+            allyCount += 1;
+            updateDisplay('',
+                '体育館に到着。握力が一人でダンベルを握りしめながら僕を待っていた。彼の表情は真剣で、他のクラスメイトとは明らかに違う。',
+                [
+                    { text: '握力に近づく', action: () => approachGrip() },
+                    { text: '周りに他の人がいないか確認する', action: () => checkForOthers() },
+                    { text: '握力の様子を観察する', action: () => observeGripBehavior() }
+                ]
+            );
+        }
+
+        function approachGrip() {
+            allyCount += 2;
+            changeAtmosphere('mystery');
+            updateDisplay('握力',
+                'A木山、よく来た。他のやつらは全員狂ってる。でも俺だけは正気だ。俺の握力でポールを破壊すれば、この30年続く狂った伝統を終わらせることができる。',
+                [
+                    { text: 'ポール破壊の詳細な計画を聞く', action: () => askDestructionPlan() },
+                    { text: 'なぜ握力だけ正気なのか聞く', action: () => askWhyGripSane() },
+                    { text: '他に協力者はいないか聞く', action: () => askOtherAllies2() }
+                ]
+            );
+        }
+
+        function askDestructionPlan() {
+            allyCount += 2;
+            updateDisplay('握力',
+                '放課後、みんながお前をポールまで連行する時、俺が背後から接近する。120kgの握力でポールの根元を破壊。コンクリートでも俺なら砕ける。ポールが倒れれば呪いも解ける。',
+                [
+                    { text: '呪いが解ける根拠を聞く', action: () => askCurseBreakingEvidence() },
+                    { text: '失敗した場合の対策を聞く', action: () => askBackupPlan() },
+                    { text: '実際の握力を見せてもらう', action: () => requestGripDemo() }
+                ]
+            );
+        }
+
+        function requestGripDemo() {
+            allyCount += 1;
+            changeAtmosphere('tension');
+            updateDisplay('握力',
+                '見ててくれ。このダンベル、100kgあるんだ...うああああああ！',
+                [
+                    { text: '次へ', action: () => gripDemoResult() }
+                ]
+            );
+        }
+
+        function gripDemoResult() {
+            allyCount += 2;
+            updateDisplay('',
+                'メキメキメキ...！ダンベルの鉄の持ち手が握力で完全に変形した！これなら本当にポールを破壊できるかもしれない！',
+                [
+                    { text: '握力を頼もしく思う', action: () => trustGripCompletely() },
+                    { text: '計画の詳細を詰める', action: () => planDetails() },
+                    { text: '他のクラスメイトに気づかれる危険について話し合う', action: () => discussRisk() }
+                ]
+            );
+        }
+
+        function trustGripCompletely() {
+            allyCount += 3;
+            updateDisplay('A木山',
+                '握力、君だけが頼りだ。君の力で僕を...いや、未来の木山たちを救ってくれ！',
+                [
+                    { text: '計画の最終確認', action: () => finalPlanConfirmation() },
+                    { text: '授業に戻る', action: () => returnToClass() }
+                ]
+            );
+        }
+
+        function finalPlanConfirmation() {
+            allyCount += 2;
+            updateDisplay('握力',
+                'よし、決まりだ。17時25分、みんながお前を連行し始める。俺は5分遅れで「見学」として合流。17時30分きっかりに、みんながお前の死を見守ってる瞬間を狙ってポールに接近。一気に粉砕する。',
+                [
+                    { text: '作戦に同意する', action: () => agreeToFinalPlan() },
+                    { text: '授業に戻る', action: () => returnToClass() }
+                ]
+            );
+        }
+
+        function agreeToFinalPlan() {
+            allyCount += 3;
+            updateDisplay('A木山',
+                '握力、君だけが頼りだ。30年間の狂った伝統を終わらせよう！',
+                [
+                    { text: '午後の授業に戻る', action: () => returnToAfternoonClass() }
+                ]
+            );
+        }
+
+                function returnToAfternoonClass() {
+            suspicionLevel += 1;
+            changeAtmosphere('tension');
+            updateDisplay('',
+                '午後の授業。クラス全員がソワソワしている。時計を見る度に、みんなの目が輝いていく。もうすぐ17時30分...運命の時が近づいている。',
+                [
+                    { text: '時間の経過を待つ', action: () => waitForTime() },
+                    { text: 'クラスメイトの様子を観察', action: () => observeClassmates() },
+                    { text: '最後の脱出を試みる', action: () => attemptFinalEscape() }
+                ]
+            );
+        }
+
+        function observeClassmates() {
+            suspicionLevel += 2;
+            updateDisplay('',
+                'O血合は興奮で手が震えている。まQは謎の踊りの練習。O村は観察用のメモを準備。O蔵は愛情のこもった眼差し。K山はカメラの最終調整。土Yは呪いのお守りを握りしめている。握力だけが冷静に時を待っている。',
+                [
+                    { text: '握力と目を合わせる', action: () => eyeContactWithGrip() },
+                    { text: '17時を待つ', action: () => waitFor5PM() }
+                ]
+            );
+        }
+
+        function eyeContactWithGrip() {
+            allyCount += 1;
+            updateDisplay('握力',
+                '（無言で頷く）俺に任せろ。',
+                [
+                    { text: '17時を待つ', action: () => waitFor5PM() }
+                ]
+            );
+        }
+
+        function waitFor5PM() {
+            changeAtmosphere('danger');
+            updateDisplay('',
+                '17時00分。放課後のチャイムが鳴る。クラス全員が一斉にA木山を囲む。「さあ、時間だ♪」',
+                [
+                    { text: '運命の時が始まった', action: () => fateBegins() }
+                ]
+            );
+        }
+
+        function fateBegins() {
+            suspicionLevel += 3;
+            updateDisplay('全員',
+                'A木山〜♪ いよいよ君の死の時間よ〜♪ みんなで君を電柱まで送ってあげる♪ 30年に一度の特別な瞬間♪',
+                [
+                    { text: '抵抗する', action: () => resistFinalEscort() },
+                    { text: '大人しく従う', action: () => submitToEscort() },
+                    { text: '握力の計画を信じて耐える', action: () => trustGripPlan() }
+                ]
+            );
+        }
+
+        function trustGripPlan() {
+            allyCount += 2;
+            updateDisplay('A木山',
+                '（心の中で）握力...頼むぞ。君だけが希望だ。',
+                [
+                    { text: '電柱に向かう', action: () => headToPole() }
+                ]
+            );
+        }
+
+        function headToPole() {
+            changeAtmosphere('danger');
+            updateDisplay('',
+                '校門から通学路へ。全校生徒と町の人々が大勢集まっている。まるでお祭りのような雰囲気。そして見える、あの呪いの電柱が...。細工された自転車が用意されている。',
+                [
+                    { text: '周囲の様子を確認', action: () => checkSurroundings() },
+                    { text: '握力がいるか探す', action: () => lookForGrip() },
+                    { text: '自転車に乗るよう促される', action: () => promptedToBike() }
+                ]
+            );
+        }
+
+        function lookForGrip() {
+            allyCount += 1;
+            updateDisplay('A木山',
+                '握力の姿が見えない...まだ来てないのか？それとも...まさか裏切ったのか？',
+                [
+                    { text: '握力を信じて待つ', action: () => waitForGrip() },
+                    { text: '自分で何とかしようとする', action: () => tryAlone() }
+                ]
+            );
+        }
+
+        function waitForGrip() {
+            allyCount += 1;
+            updateDisplay('校長',
+                'さあA木山くん、自転車に乗って♪ 17時30分まであと3分よ♪ みんな君の美しい死を楽しみにしてるの♪',
+                [
+                    { text: 'まだ握力を待つ', action: () => keepWaitingGrip() },
+                    { text: '自転車に乗る', action: () => getOnBike() }
+                ]
+            );
+        }
+
+        function keepWaitingGrip() {
+            allyCount += 1;
+            updateDisplay('',
+                'その時！握力が走ってきた！「待たせてすまん！俺も見学に来た！」',
+                [
+                    { text: '握力の到着に安堵する', action: () => relievedByGrip() }
+                ]
+            );
+        }
+
+        function relievedByGrip() {
+            allyCount += 2;
+            updateDisplay('握力',
+                '（小声で）準備はできてる。俺を信じろ。',
+                [
+                    { text: '自転車に乗る', action: () => getOnBike() }
+                ]
+            );
+        }
+
+        function getOnBike() {
+            changeAtmosphere('tension');
+            updateDisplay('',
+                '細工された自転車にまたがる。ブレーキは効かない、ハンドルは固定されている。前方には呪いの電柱13番が待っている。周囲は興奮した観客で埋め尽くされている。',
+                [
+                    { text: '17時30分を待つ', action: () => waitFor530() }
+                ]
+            );
+        }
+
+        function waitFor530() {
+            updateDisplay('校長',
+                '17時30分になりました♪ それでは、30年に一度の伝統行事を開始します♪ A木山くん、スタート♪',
+                [
+                    { text: '自転車で走り出す', action: () => startRiding() }
+                ]
+            );
+        }
+
+        function startRiding() {
+            changeAtmosphere('danger');
+            updateDisplay('',
+                '自転車が動き出した！ブレーキが効かないまま電柱に向かって加速していく！観客たちが興奮して声援を送る！',
+                [
+                    { text: '握力の行動を見る', action: () => watchGripAction() }
+                ]
+            );
+        }
+
+        function watchGripAction() {
+            // 握力の成功確率を計算（15%以下に調整）
+            const successChance = Math.min(15, (allyCount * 3) - (suspicionLevel * 1.5));
+            const random = Math.random() * 100;
+            
+            if (random < Math.max(3, successChance)) {
+                // 握力成功 - ハッピーエンド
+                gripSuccess();
+            } else {
+                // 握力失敗 - ランダムな同行者による分岐
+                gripFailsRandomEnding();
+            }
+        }
+
+        function gripSuccess() {
+            allyCount += 5;
+            changeAtmosphere('happy');
+            updateDisplay('握力',
+                'A木山！今だ！30年間の狂気よ、今こそ終われ！うおおおおおお！',
+                [
+                    { text: '次へ', action: () => poleDestruction() }
+                ]
+            );
+        }
+
+        function poleDestruction() {
+            updateDisplay('',
+                'メキメキメキメキ...！コンクリート製のポールが握力の超人的な力で完全に粉砕された！中から光る破片が飛び散る！',
+                [
+                    { text: '次へ', action: () => curseBreaking() }
+                ]
+            );
+        }
+
+        function curseBreaking() {
+            updateDisplay('',
+                'その瞬間、町の人々の目に正気が戻った！30年間続いた呪いが完全に解けた！',
+                [
+                    { text: 'HAPPY END', action: () => happyEndingFinal() }
+                ]
+            );
+        }
+
+        function happyEndingFinal() {
+            updateDisplay('O血合',
+                'え？僕、どうして血のことばかり考えてたんだろう...握力、君が僕たちを救ってくれたんだ！A木山、無事でよかった！',
+                [
+                    { text: 'エピローグを見る', action: () => showHappyEpilogue() }
+                ]
+            );
+        }
+
+        function showHappyEpilogue() {
+            changeAtmosphere('happy');
+            updateDisplay('',
+                '数ヶ月後、Sマーダー工業高校は平和な学校に生まれ変わった。電柱13番があった場所には美しい花壇が作られ、『平和の記念碑』が建てられた。',
+                [
+                    { text: '次へ', action: () => showHappyEpilogue2() }
+                ]
+            );
+        }
+
+        function showHappyEpilogue2() {
+            updateDisplay('',
+                '学校の図書館には新しいコーナーができた。『木山家の真実と呪いの歴史』そして『二度と繰り返してはならない過ちの記録』として、30年間の狂気が記録されている。',
+                [
+                    { text: '次へ', action: () => showHappyEpilogue3() }
+                ]
+            );
+        }
+
+        function showHappyEpilogue3() {
+            updateDisplay('',
+                'そして今日も新しい転校生がやってきた。',
+                [
+                    { text: '次へ', action: () => showHappyEpilogue4() }
+                ]
+            );
+        }
+
+        function showHappyEpilogue4() {
+            updateDisplay('新転校生',
+                'はじめまして！E木山です！',
+                [
+                    { text: '次へ', action: () => showHappyEpilogue5() }
+                ]
+            );
+        }
+
+        function showHappyEpilogue5() {
+            updateDisplay('全員',
+                'よろしく、E木山！一緒に楽しい学校生活を送ろう！今度は誰も死なない、本当の友情を築こう！',
+                [
+                    { text: '次へ', action: () => showHappyEpilogue6() }
+                ]
+            );
+        }
+
+        function showHappyEpilogue6() {
+            updateDisplay('握力',
+                '俺の握力で呪いを砕いてよかった。これで未来の木山たちも、もう死ぬことはない。',
+                [
+                    { text: 'TRUE END', action: () => showHappyEpilogueFinal() }
+                ]
+            );
+        }
+
+        function showHappyEpilogueFinal() {
+            const gripChance = Math.min(15, (allyCount * 3) - (suspicionLevel * 1.5));
+            updateDisplay('',
+                'TRUE END - 30年間の呪いは完全に解けた。\n\n握力との信頼度: ' + allyCount + '\n疑心暗鬼レベル: ' + suspicionLevel + '\n脱出試行回数: ' + escapeAttempts + '\n握力ルート到達率: ' + Math.max(3, Math.round(gripChance)) + '%',
+                [
+                    { text: 'タイトルに戻る', action: () => location.reload() }
+                ]
+            );
+        }
+
+        function gripFailsRandomEnding() {
+            const companions = ['O血合', 'まQ', 'O村', 'O蔵', 'K山', '土Y'];
+            const randomIndex = Math.floor(Math.random() * companions.length);
+            const companion = companions[randomIndex];
+            
+            updateDisplay('',
+                `握力がポールに向かったが...間に合わない！そして最後にA木山と一緒にいたのは${companion}だった...`,
+                [
+                    { text: '次へ', action: () => executeSpecificEnding(companion) }
+                ]
+            );
+        }
+
+        function executeSpecificEnding(companion) {
+            switch(companion) {
+                case 'O血合':
+                    oKetsugoDeathEnd();
+                    break;
+                case 'まQ':
+                    maqDeathEnd();
+                    break;
+                case 'O村':
+                    oMuraDeathEnd();
+                    break;
+                case 'O蔵':
+                    oZouDeathEnd();
+                    break;
+                case 'K山':
+                    kYamaDeathEnd();
+                    break;
+                case '土Y':
+                    doYDeathEnd();
+                    break;
+            }
+        }
+
+        function oKetsugoDeathEnd() {
+            changeAtmosphere('death');
+            updateDisplay('O血合',
+                'A木山〜♪ 私が一番近くで君の血を観賞する特権をいただくわ♪ さあ、美しく死んで♪',
+                [
+                    { text: 'ガシャーン！', action: () => finalCrash('ああ〜♪ 最高の血の色♪ 美しすぎる♪ 30年間待った甲斐があった♪', 'BAD END - O血合の血液への異常な執着が最後まで続いた') }
+                ]
+            );
+        }
+
+        function maqDeathEnd() {
+            changeAtmosphere('death');
+            updateDisplay('まQ',
+                'A木山〜♪ Quality（質）の高い死の演出タイム♪ ♪Quality Death Dance♪ 君への最高の送別の踊り♪',
+                [
+                    { text: 'ガシャーン！', action: () => finalCrash('Perfect Quality♪ 最高の死に顔だ♪ この瞬間こそ真のQuality♪', 'BAD END - まQのQuality Danceは文字通り死の舞踊だった') }
+                ]
+            );
+        }
+
+               function oMuraDeathEnd() {
+            changeAtmosphere('death');
+            updateDisplay('O村',
+                'A木山〜♪ 僕が君の死体の第一発見者になる権利をゲットしたぜ♪ 最高の観察データを取ってやる♪',
+                [
+                    { text: 'ガシャーン！', action: () => finalCrash('やった〜♪ 完璧な死体♪ 最高の観察データが取れた♪ レポート書くのが楽しみ♪', 'BAD END - O村の興奮が悲劇を完成させた') }
+                ]
+            );
+        }
+
+        function oZouDeathEnd() {
+            changeAtmosphere('death');
+            updateDisplay('O蔵',
+                'A木山〜♪ やっと君と永遠に一緒にいられる♪ 僕の愛する死体になって♪ 愛してるよ〜♪',
+                [
+                    { text: 'ガシャーン！', action: () => finalCrash('ああ〜♪ 美しい〜♪ 最高の死体♪ これから毎日一緒にいようね♪ 永遠に愛してあげる♪', 'BAD END - O蔵の歪んだ愛情が実現してしまった') }
+                ]
+            );
+        }
+
+        function kYamaDeathEnd() {
+            changeAtmosphere('death');
+            updateDisplay('K山',
+                'A木山〜♪ 完璧な8K画質で君の死を記録してあげる♪ 世界中に配信して永遠に残してあげる♪',
+                [
+                    { text: 'ガシャーン！', action: () => finalCrash('完璧な映像が撮れた♪ これをSNSで世界配信♪ #木山の死 #最高の瞬間 #30年の伝統', 'BAD END - K山の撮影が悲劇の瞬間を永遠に記録した') }
+                ]
+            );
+        }
+
+        function doYDeathEnd() {
+            changeAtmosphere('death');
+            updateDisplay('土Y',
+                'A木山〜♪ 僕の『絶対死亡のお守り』の効果は完璧♪ 30年間100%の成功率♪ 君も統計の一部になったね♪',
+                [
+                    { text: 'ガシャーン！', action: () => finalCrash('ラッキー♪ お守りの効果は完璧♪ 30年間無敗記録継続中♪ 次の木山も楽しみ♪', 'BAD END - 土Yの悪運操作が恐ろしいほど的確だった') }
+                ]
+            );
+        }
+
+        function finalCrash(killerReaction, endText) {
+            updateDisplay('',
+                'A木山はポールに激突した！',
+                [
+                    { text: '最期の瞬間', action: () => lastMoment(killerReaction, endText) }
+                ]
+            );
+        }
+
+        function lastMoment(killerReaction, endText) {
+            updateDisplay('A木山',
+                'く、空気がない......',
+                [
+                    { text: '次へ', action: () => killerReaction2(killerReaction, endText) }
+                ]
+            );
+        }
+
+        function killerReaction2(killerReaction, endText) {
+            updateDisplay('',
+                killerReaction,
+                [
+                    { text: '次へ', action: () => showBadEnd(endText) }
+                ]
+            );
+        }
+
+        function showBadEnd(endText) {
+            updateDisplay('',
+                endText,
+                [
+                    { text: 'エピローグを見る', action: () => showBadEpilogue() }
+                ]
+            );
+        }
+
+        function showBadEpilogue() {
+            changeAtmosphere('mystery');
+            updateDisplay('',
+                '翌日、Sマーダー工業高校には静寂が戻っていた。校庭には新しい慰霊碑が建てられた。『D木山 享年16歳』そして生徒たちは何事もなかったかのように日常を過ごしている。',
+                [
+                    { text: '次へ', action: () => showBadEpilogue2() }
+                ]
+            );
+        }
+
+        function showBadEpilogue2() {
+            updateDisplay('',
+                '地元新聞の見出し：『またも木山、呪いの電柱で死亡 - 30年続く謎の事故』町の人々は今回も「不幸な事故」として処理した。',
+                [
+                    { text: '次へ', action: () => showBadEpilogue3() }
+                ]
+            );
+        }
+
+        function showBadEpilogue3() {
+            updateDisplay('',
+                'そして一週間後...新しい転校生を乗せたバスがSマーダー工業高校に向かっていた。',
+                [
+                    { text: '次へ', action: () => showBadEpilogue4() }
+                ]
+            );
+        }
+
+        function showBadEpilogue4() {
+            updateDisplay('新転校生',
+                'はじめまして！E木山です！よろしくお願いします！',
+                [
+                    { text: '次へ', action: () => showBadEpilogue5() }
+                ]
+            );
+        }
+
+        function showBadEpilogue5() {
+            updateDisplay('全員',
+                'ええええええ！！！また木山！？やった〜♪ 次の獲物♪ 10年ぶりの木山♪ 今度こそ完璧に♪',
+                [
+                    { text: '次へ', action: () => showBadEpilogue6() }
+                ]
+            );
+        }
+
+        function showBadEpilogue6() {
+            updateDisplay('',
+                'そして『E木山完全死亡プロジェクト』が始動した。黒板には新しい計画が書かれている。この狂気のサイクルはいつまで続くのだろうか...',
+                [
+                    { text: 'TO BE CONTINUED...', action: () => showBadEpilogueFinal() }
+                ]
+            );
+        }
+
+        function showBadEpilogueFinal() {
+            const gripChance = Math.min(15, (allyCount * 3) - (suspicionLevel * 1.5));
+            updateDisplay('',
+                'TO BE CONTINUED...\n\n握力ルート到達率: ' + Math.max(3, Math.round(gripChance)) + '%',
+                [
+                    { text: 'タイトルに戻る', action: () => location.reload() }
+                ]
+            );
+        }
+
+        // 残りの不足関数を追加
+        function rushToClass() {
+            suspicionLevel += 1;
+            updateDisplay('A木山',
+                '急いで教室に向かう途中、廊下ですれ違う生徒たちが全員僕を見て微笑んでいる。しかも目が異常に輝いてる...',
+                [
+                    { text: '1年生に話しかける', action: () => talkTo1stYear() },
+                    { text: '3年生に話しかける', action: () => talkTo3rdYear() },
+                    { text: '無視して教室に急ぐ', action: () => ignoreAndRush() }
+                ]
+            );
+        }
+
+        function talkTo1stYear() {
+            suspicionLevel += 2;
+            updateDisplay('1年生',
+                'あ！D木山先輩だ！僕たち1年生は先輩の死体の写真を撮る係なんです！初めての木山イベントなので緊張してます！先輩、死ぬ時はいい表情お願いします！',
+                [
+                    { text: '木山イベントについて詳しく聞く', action: () => askAboutKiyamaEvent() },
+                    { text: '写真について詳しく聞く', action: () => askAboutPhotos() },
+                    { text: 'その場を離れる', action: () => leaveQuickly() }
+                ]
+            );
+        }
+
+        function visitNurse() {
+            suspicionLevel += 1;
+            updateDisplay('保健の先生',
+                'あら、A木山くん♪ 体調不良？それとも死ぬ前の最後の健康チェック？今日は特別な日だものね♪',
+                [
+                    { text: '特別な日について聞く', action: () => askSpecialDay() },
+                    { text: '教室に向かう', action: () => rushToClassroomWorried() }
+                ]
+            );
+        }
+
+        function askSpecialDay() {
+            suspicionLevel += 2;
+            updateDisplay('保健の先生',
+                '木山の死ぬ日よ♪ 30年に一度の♪ でも大丈夫、痛みはすぐに終わるから♪',
+                [
+                    { text: '教室に向かう', action: () => rushToClassroomWorried() }
+                ]
+            );
+        }
+
+        function approachCrowd() {
+            suspicionLevel += 2;
+            updateDisplay('',
+                '人だかりに近づくと、みんなが何かのポスターを見て興奮している。『D木山処刑カウントダウン』と書かれている...',
+                [
+                    { text: 'ポスターを詳しく見る', action: () => examineExecutionPoster() },
+                    { text: '教室に逃げる', action: () => rushToClassroomWorried() }
+                ]
+            );
+        }
+
+        function examineExecutionPoster() {
+            suspicionLevel += 3;
+            changeAtmosphere('danger');
+            updateDisplay('',
+                'ポスターには『本日17:30 D木山処刑実行』『観覧料：500円』『記念品販売あり』と書かれている。完全にイベント化されている！',
+                [
+                    { text: '教室に急ぐ', action: () => rushToClassroomWorried() }
+                ]
+            );
+        }
+
+        function useBackGate() {
+            escapeAttempts += 1;
+            updateDisplay('',
+                '裏門に向かったが...なぜか裏門の前にも生徒たちが待ち構えている。「あ、D木山が裏門から逃げようとしてる♪」',
+                [
+                    { text: '別のルートを探す', action: () => findAlternativeRoute() },
+                    { text: '諦めて正門から入る', action: () => enterFromMainGate() }
+                ]
+            );
+        }
+
+        function findAlternativeRoute() {
+            escapeAttempts += 1;
+            updateDisplay('',
+                '校舎の周りを回ったが、どこにも生徒たちが配置されている。完全に包囲されている...',
+                [
+                    { text: '学校に入るしかない', action: () => enterFromMainGate() }
+                ]
+            );
+        }
+
+        function enterFromMainGate() {
+            suspicionLevel += 1;
+            updateDisplay('',
+                '仕方なく正門から学校に入る。周りの視線が痛い...',
+                [
+                    { text: '教室に向かう', action: () => rushToClassroomWorried() }
+                ]
+            );
+        }
+
+        function observeFromDistance() {
+            suspicionLevel += 1;
+            updateDisplay('',
+                '距離を置いて観察すると、人だかりの中心に自分の写真が貼られているのが見える...',
+                [
+                    { text: '近づいて確認する', action: () => approachCrowd() },
+                    { text: '教室に向かう', action: () => rushToClassroomWorried() }
+                ]
+            );
+        }
+
+        function askStudentDirectly() {
+            suspicionLevel += 2;
+            updateDisplay('2年生',
+                'あ、D木山先輩♪ 今日は先輩の特別な日ですね♪ 楽しみです♪ 僕、先輩の死体の清掃係なんです♪',
+                [
+                    { text: '死体の清掃係について聞く', action: () => askCleanupDuty() },
+                    { text: '教室に逃げる', action: () => rushToClassroomWorried() }
+                ]
+            );
+        }
+
+        function askCleanupDuty() {
+            suspicionLevel += 2;
+            updateDisplay('2年生',
+                '先輩が死んだ後、血を綺麗に拭き取って、現場を清掃するんです♪ 歴代の木山の血も綺麗に掃除しました♪ 今度は先輩の番です♪',
+                [
+                    { text: '教室に急ぐ', action: () => rushToClassroomWorried() }
+                ]
+            );
+        }
+
+        function hideAndObserve() {
+            suspicionLevel += 2;
+            updateDisplay('',
+                '茂みに隠れて観察していると...生徒たちが「D木山監視班」という腕章をつけているのが見える。完全に監視されている！',
+                [
+                    { text: '別の場所に移動', action: () => moveToAnotherSpot() },
+                    { text: '教室に向かう', action: () => rushToClassroomWorried() }
+                ]
+            );
+        }
+
+        function moveToAnotherSpot() {
+            suspicionLevel += 1;
+            updateDisplay('',
+                '別の場所に移動したが、そこにも監視の目が...逃げ場がない。',
+                [
+                    { text: '教室に向かう', action: () => rushToClassroomWorried() }
+                ]
+            );
+        }
+
+        function consultTeacher() {
+            suspicionLevel += 3;
+            changeAtmosphere('danger');
+            updateDisplay('担任',
+                'おはよう、A木山くん♪ 今日は君の最後の日だね♪ 先生も君の死を楽しみにしてるんだ♪ さあ、教室に行こう♪',
+                [
+                    { text: '先生も共犯なのか確認', action: () => confirmTeacherComplicity() },
+                    { text: '教室に向かう', action: () => rushToClassroomWorried() }
+                ]
+            );
+        }
+
+                function confirmTeacherComplicity() {
+            suspicionLevel += 2;
+            updateDisplay('担任',
+                'もちろん♪ 学校全体で君の死を計画してるんだ♪ 30年間続く美しい伝統よ♪ 逃げても無駄だから♪',
+                [
+                    { text: '教室に向かう', action: () => rushToClassroomWorried() }
+                ]
+            );
+        }
+
+        function checkForWitnesses() {
+            suspicionLevel += 1;
+            updateDisplay('A木山',
+                '辺りを見回すと...いる。2年生のO血合が茂みから僕を見てる。目が血走ってて、なんか興奮してる。',
+                [
+                    { text: 'O血合に話しかける', action: () => talkToOKetsugo() },
+                    { text: 'O血合から逃げる', action: () => runFromOKetsugo() },
+                    { text: 'O血合を無視して花束を調べ続ける', action: () => ignoreOKetsugo() }
+                ]
+            );
+        }
+
+        function talkToOKetsugo() {
+            suspicionLevel += 2;
+            changeAtmosphere('danger');
+            updateDisplay('O血合',
+                'あら♪ A木山くん、おはよう♪ 今日は君にとって特別な日ね♪ 君のA型の血液がどんな風に流れるのか、とっても楽しみなの♪ 赤い色って美しいわよね♪',
+                [
+                    { text: '血液の話について詳しく聞く', action: () => askAboutBlood() },
+                    { text: 'O血合の正体を探る', action: () => investigateOKetsugo() },
+                    { text: 'その場から立ち去る', action: () => leaveOKetsugo() }
+                ]
+            );
+        }
+
+        function takePhoto() {
+            suspicionLevel += 1;
+            updateDisplay('',
+                '証拠写真を撮ろうとしたが...携帯のカメラが故障している。まるで撮影を阻止されているかのように...',
+                [
+                    { text: '花束をもっと調べる', action: () => investigateFlowersDeep() },
+                    { text: '教室に向かう', action: () => rushToClassroomWorried() }
+                ]
+            );
+        }
+
+        function sitDown() {
+            suspicionLevel += 1;
+            updateDisplay('',
+                '自分の席に座ると、机の上に『D木山の最後の授業』というプリントが置かれている...',
+                [
+                    { text: 'プリントを読む', action: () => readLastLessonSheet() },
+                    { text: 'クラスメイトに話しかける', action: () => talkToClassmates() }
+                ]
+            );
+        }
+
+        function readLastLessonSheet() {
+            suspicionLevel += 2;
+            updateDisplay('',
+                'プリントには死に方の詳細な手順が書かれている。『1.自転車に乗る 2.ブレーキをかけても効かない 3.ポールに激突 4.「空気がない」と言って死ぬ』',
+                [
+                    { text: 'クラスメイトに話しかける', action: () => talkToClassmates() }
+                ]
+            );
+        }
+
+        function protestToClass() {
+            suspicionLevel += 3;
+            changeAtmosphere('tension');
+            updateDisplay('A木山',
+                'みんな、頭がおかしいんじゃないか！？僕は死なない！絶対に死なないぞ！',
+                [
+                    { text: 'クラス全員に囲まれる', action: () => surroundedByClass() }
+                ]
+            );
+        }
+
+        function surroundedByClass() {
+            suspicionLevel += 2;
+            updateDisplay('クラス全員',
+                'A木山〜♪ 抵抗しても無駄だよ〜♪ 運命は変えられない〜♪',
+                [
+                    { text: '握力を探す', action: () => searchForGripInClass() },
+                    { text: '体育館に逃げる', action: () => escapeToGym() }
+                ]
+            );
+        }
+
+        function searchForGripInClass() {
+            allyCount += 1;
+            updateDisplay('',
+                '握力を探すと、彼だけが他の生徒と違う表情をしている...',
+                [
+                    { text: '握力に近づく', action: () => whisperToGrip() }
+                ]
+            );
+        }
+
+        function escapeToGym() {
+            updateDisplay('',
+                '教室から体育館に逃げ出した！',
+                [
+                    { text: '体育館で握力を探す', action: () => rushToGym() }
+                ]
+            );
+        }
+
+        function askQualityDetails() {
+            suspicionLevel += 2;
+            updateDisplay('まQ',
+                'Quality（質）の高い死には演出が必要なの♪ 僕が君の最期の瞬間に特別なBGMを流してあげる♪ 『Quality Death March』っていう僕のオリジナル曲よ♪',
+                [
+                    { text: 'BGMを聞かせてもらう', action: () => requestBGM() },
+                    { text: '他にどんな演出があるか聞く', action: () => askOtherPerformances() },
+                    { text: 'O村に話しかける', action: () => talkToOMura() }
+                ]
+            );
+        }
+
+        function requestBGM() {
+            suspicionLevel += 1;
+            updateDisplay('まQ',
+                '♪ダンダンダーン♪ ダンダンダーン♪ 木山が死ぬよ〜♪ Quality（質）の高い死だよ〜♪ ポールにぶつかって血まみれよ〜♪ どう？Quality（質）高いでしょ？',
+                [
+                    { text: '他のクラスメイトの反応を見る', action: () => checkClassmateReactions() },
+                    { text: 'O村に話しかける', action: () => talkToOMura() }
+                ]
+            );
+        }
+
+        function checkClassmateReactions() {
+            suspicionLevel += 1;
+            updateDisplay('クラス全員',
+                '♪いいね〜♪ Quality（質）高い〜♪ A木山の死に歌〜♪ みんなで歌おう〜♪',
+                [
+                    { text: '握力の反応を特に注意して見る', action: () => observeGrip() },
+                    { text: 'O村に話しかける', action: () => talkToOMura() },
+                    { text: 'O蔵に話しかける', action: () => talkToOZou() }
+                ]
+            );
+        }
+
+        function observeGrip() {
+            allyCount += 1;
+            changeAtmosphere('mystery');
+            updateDisplay('A木山',
+                '握力だけが歌ってない...それどころか、眉をひそめて困った顔をしている。もしかして握力は僕の味方？',
+                [
+                    { text: '握力にそっと話しかける', action: () => whisperToGrip() },
+                    { text: '握力の様子をもう少し観察する', action: () => observeGripMore() },
+                    { text: '他のクラスメイトに話しかける', action: () => talkToOZou() }
+                ]
+            );
+        }
+
+        function observeGripMore() {
+            allyCount += 1;
+            updateDisplay('A木山',
+                '握力の表情をもっと観察すると...明らかに他のクラスメイトと違う。心配そうで、何か計画を練ってるような...',
+                [
+                    { text: '握力にそっと話しかける', action: () => whisperToGrip() },
+                    { text: '他のクラスメイトに話しかける', action: () => talkToOZou() }
+                ]
+            );
+        }
+
+        function talkToOZou() {
+            suspicionLevel += 2;
+            changeAtmosphere('danger');
+            updateDisplay('O蔵',
+                'A木山くん♪ 僕は君の死体保管係よ♪ 君が死んだら、僕が一番長時間君と一緒にいるの♪ 永遠に君を愛してあげる♪ 死体になった君を毎日撫でてあげる♪',
+                [
+                    { text: '死体保管について詳しく聞く', action: () => askBodyStorage() },
+                    { text: 'O蔵の愛情について聞く', action: () => askOZouLove() },
+                    { text: '体育館に向かう', action: () => headToGym() }
+                ]
+            );
+        }
+
+        function askBodyObservation() {
+            suspicionLevel += 2;
+            updateDisplay('O村',
+                '死体の温度、硬直の進行、血液の凝固状態とか色々調べるんだ♪ ポールにぶつかった時の衝撃で、どんな風に骨が折れるかも観察したい♪ 楽しみで眠れなかったよ♪',
+                [
+                    { text: '過去の木山の観察記録を聞く', action: () => askPastObservations() },
+                    { text: 'O蔵に話しかける', action: () => talkToOZou() },
+                    { text: '体育館に向かう', action: () => headToGym() }
+                ]
+            );
+        }
+
+        function askReportContent() {
+            suspicionLevel += 2;
+            updateDisplay('O村',
+                'レポートには君の死に顔の詳細、血の流れ方、骨の折れ具合、死後の体の変化とか全部書くんだ♪ 学会に発表する予定なんだ♪',
+                [
+                    { text: '学会について聞く', action: () => askAboutConference() },
+                    { text: 'O蔵に話しかける', action: () => talkToOZou() }
+                ]
+            );
+        }
+
+        function askAboutConference() {
+            suspicionLevel += 2;
+            updateDisplay('O村',
+                '『死体観察学会』っていう学会があるんだ♪ 木山の死体は学術的価値が高いから、きっと注目されるよ♪ 君のおかげで有名になれる♪',
+                [
+                    { text: 'O蔵に話しかける', action: () => talkToOZou() }
+                ]
+            );
+        }
+
+        function askBodyStorage() {
+            suspicionLevel += 3;
+            changeAtmosphere('danger');
+            updateDisplay('O蔵',
+                '僕の地下室には特別な冷凍保存庫があるの♪ 君を美しい状態で永久保存してあげる♪ 毎日会いに行くから寂しくないよ♪',
+                [
+                    { text: '保存庫の詳細を聞く', action: () => askStorageDetails() },
+                    { text: '過去の木山も保存してるのか聞く', action: () => askPastStorage() }
+                ]
+            );
+        }
+
+        function askStorageDetails() {
+            suspicionLevel += 2;
+            updateDisplay('O蔵',
+                'マイナス18度で完璧に保存♪ 防腐処理も済ませてあるから、100年でも美しいまま♪ 君専用のベッドも用意したの♪',
+                [
+                    { text: '過去の木山について聞く', action: () => askPastStorage() },
+                    { text: '体育館に向かう', action: () => headToGym() }
+                ]
+            );
+        }
+
+        function askPastStorage() {
+            suspicionLevel += 3;
+            updateDisplay('O蔵',
+                'A木山太郎、B木山花子、C木山一郎♪ みんな僕の地下室で仲良く眠ってるの♪ 君も今日からお仲間入り♪ 4人で永遠に一緒よ♪',
+                [
+                    { text: '体育館に向かう', action: () => headToGym() }
+                ]
+            );
+        }
+
+        function askOZouLove() {
+            suspicionLevel += 3;
+            changeAtmosphere('danger');
+            updateDisplay('O蔵',
+                '僕の愛は永遠よ♪ 生きてる人間は変わってしまうけど、死体は永遠に美しいまま♪ だから君が死ぬのは愛の完成なの♪',
+                [
+                    { text: '愛の完成について詳しく聞く', action: () => askLoveCompletion() },
+                    { text: '体育館に向かう', action: () => headToGym() }
+                ]
+            );
+        }
+
+        function askLoveCompletion() {
+            suspicionLevel += 2;
+            updateDisplay('O蔵',
+                '君が死んだら僕たちは永遠に結ばれるの♪ 死が二人を分かつまで？違うわ♪ 死が二人を結ぶのよ♪',
+                [
+                    { text: '体育館に向かう', action: () => headToGym() }
+                ]
+            );
+        }
+
+        function promiseToMeetGrip() {
+            allyCount += 1;
+            updateDisplay('握力',
+                '（小声で）わかった。体育館で待ってる。でも周りに気づかれないよう気をつけろ。',
+                [
+                    { text: '体育館に向かう', action: () => headToGym() },
+                    { text: '授業を普通に受ける振りをする', action: () => pretendNormalClass() }
+                ]
+            );
+        }
+
+        function confirmGripTrust() {
+            allyCount += 1;
+            updateDisplay('A木山',
+                '握力、君は本当に僕を助けてくれるのか？これは罠じゃないのか？',
+                [
+                    { text: '握力の返答を聞く', action: () => hearGripResponse() }
+                ]
+            );
+        }
+
+                function hearGripResponse() {
+            allyCount += 2;
+            updateDisplay('握力',
+                '（真剣な表情で）俺を疑うのも無理はない。でも俺だけは本気だ。この狂った伝統を終わらせる。俺の握力を信じろ。',
+                [
+                    { text: '握力を信じることにする', action: () => trustGrip() },
+                    { text: '体育館で詳しく話すことを約束', action: () => promiseDetailedTalk() }
+                ]
+            );
+        }
+
+        function trustGrip() {
+            allyCount += 2;
+            updateDisplay('A木山',
+                'わかった、握力。君を信じる。',
+                [
+                    { text: '体育館で詳しく話すことを約束', action: () => promiseDetailedTalk() }
+                ]
+            );
+        }
+
+        function askOtherAllies() {
+            allyCount += 1;
+            updateDisplay('握力',
+                '（小声で）俺以外はみんな狂ってる。先生も、町の人も、警察も。でも俺には力がある。それだけで十分だ。',
+                [
+                    { text: '握力の力を頼りにする', action: () => relyOnGripStrength() },
+                    { text: '体育館に向かう', action: () => headToGym() }
+                ]
+            );
+        }
+
+        function relyOnGripStrength() {
+            allyCount += 2;
+            updateDisplay('A木山',
+                '握力、君の力だけが希望だ。',
+                [
+                    { text: '体育館に向かう', action: () => headToGym() }
+                ]
+            );
+        }
+
+        function pretendNormalClass() {
+            suspicionLevel += 1;
+            updateDisplay('',
+                '普通に授業を受ける振りをしながら、握力との約束を心に秘める...',
+                [
+                    { text: '昼休みになったら体育館に向かう', action: () => waitForLunchBreak() }
+                ]
+            );
+        }
+
+        function waitForLunchBreak() {
+            updateDisplay('',
+                'キーンコーンカーンコーン...昼休みのチャイムが鳴った。',
+                [
+                    { text: '体育館に向かう', action: () => headToGym() }
+                ]
+            );
+        }
+
+        function readPostersCarefully() {
+            suspicionLevel += 3;
+            updateDisplay('',
+                '『観賞会参加費：大人1000円、学生500円』『死体写真コンテスト優勝賞金：50万円』『木山の最期の言葉予想：1位「空気がない」2位「助けて」3位「痛い」』...賭けの対象にまでなってる！',
+                [
+                    { text: '最期の言葉予想に注目する', action: () => focusOnLastWords() },
+                    { text: '体育館に急ぐ', action: () => rushToGym() },
+                    { text: '他の張り紙も確認', action: () => checkOtherPosters() }
+                ]
+            );
+        }
+
+        function focusOnLastWords() {
+            suspicionLevel += 2;
+            updateDisplay('A木山',
+                '「空気がない」が1位予想...これは昨夜見た夢と同じだ！まさか、僕の夢も操作されてる？それとも過去の木山たちも同じことを言って死んだ？',
+                [
+                    { text: '体育館に急ぐ', action: () => rushToGym() }
+                ]
+            );
+        }
+
+        function checkOtherPosters() {
+            suspicionLevel += 2;
+            updateDisplay('',
+                '『木山追悼グッズ販売』『木山の制服オークション：現在50万円』『木山の机と椅子：記念品として販売中』『木山の教科書：遺品として高額取引』...僕の持ち物まで商品化されてる！',
+                [
+                    { text: '体育館に急ぐ', action: () => rushToGym() }
+                ]
+            );
+        }
+
+        function checkForOthers() {
+            allyCount += 1;
+            updateDisplay('',
+                '体育館を見回すと、他に誰もいない。握力だけが待っている。これなら安心して話ができる。',
+                [
+                    { text: '握力に近づく', action: () => approachGrip() }
+                ]
+            );
+        }
+
+        function observeGripBehavior() {
+            allyCount += 1;
+            updateDisplay('',
+                '握力の様子を観察すると、彼は真剣にダンベルと向き合っている。他のクラスメイトのような狂気は感じられない。本当に正気を保っているようだ。',
+                [
+                    { text: '握力に近づく', action: () => approachGrip() }
+                ]
+            );
+        }
+
+        function askWhyGripSane() {
+            allyCount += 1;
+            updateDisplay('握力',
+                '俺だけ呪いにかからなかったんだ。理由はわからない。もしかしたら俺の握力が呪いより強いのかもしれない。とにかく、俺は君を助ける。',
+                [
+                    { text: '握力が呪いにかからない理由を考える', action: () => ponderGripImmunity() },
+                    { text: 'ポール破壊の計画を聞く', action: () => askDestructionPlan() }
+                ]
+            );
+        }
+
+        function ponderGripImmunity() {
+            allyCount += 1;
+            updateDisplay('A木山',
+                'なぜ握力だけが正気なんだろう...もしかして、物理的な力が呪いに対抗できるのか？',
+                [
+                    { text: 'ポール破壊の計画を聞く', action: () => askDestructionPlan() }
+                ]
+            );
+        }
+
+        function askOtherAllies2() {
+            allyCount += 1;
+            updateDisplay('握力',
+                '他に協力者はいない。先生も生徒も町の人もみんな狂ってる。でも俺一人で十分だ。俺の握力なら必ずポールを破壊できる。',
+                [
+                    { text: '握力一人で大丈夫か心配する', action: () => worryAboutGrip() },
+                    { text: 'ポール破壊の計画を聞く', action: () => askDestructionPlan() }
+                ]
+            );
+        }
+
+        function worryAboutGrip() {
+            allyCount += 2;
+            updateDisplay('A木山',
+                '握力、君一人で大丈夫なのか？もし失敗したら...',
+                [
+                    { text: '握力の決意を聞く', action: () => hearGripDetermination() }
+                ]
+            );
+        }
+
+        function hearGripDetermination() {
+            allyCount += 2;
+            updateDisplay('握力',
+                '失敗は許されない。30年間続いた狂気を終わらせるのは俺の使命だ。俺の握力120kgは伊達じゃない。',
+                [
+                    { text: 'ポール破壊の計画を聞く', action: () => askDestructionPlan() }
+                ]
+            );
+        }
+
+        function askCurseBreakingEvidence() {
+            allyCount += 2;
+            updateDisplay('握力',
+                '図書館で古い資料を調べたんだ。30年前、最初の木山が死んだ時に建てられたポールらしい。そのポールに何らかの呪術的な力が宿ってる。破壊すれば連鎖が断ち切れる。',
+                [
+                    { text: 'その資料を見せてもらう', action: () => requestDocuments() },
+                    { text: '握力の実力を確認', action: () => requestGripDemo() }
+                ]
+            );
+        }
+
+        function requestDocuments() {
+            allyCount += 1;
+            updateDisplay('握力',
+                '資料は図書館の奥の禁書コーナーにある。司書に見つからないよう隠れて調べたんだ。ポールの設計図や建設記録もあった。',
+                [
+                    { text: '設計図について詳しく聞く', action: () => askBlueprintDetails() },
+                    { text: '握力の実力を確認', action: () => requestGripDemo() }
+                ]
+            );
+        }
+
+        function askBlueprintDetails() {
+            allyCount += 2;
+            updateDisplay('握力',
+                'ポールの中心部に特別な部屋がある。そこに御神体の破片が封印されてるんだ。俺がポールを握り潰せば、その封印が解けて呪いが消える。',
+                [
+                    { text: '握力の実力を確認', action: () => requestGripDemo() }
+                ]
+            );
+        }
+
+        function askBackupPlan() {
+            allyCount += 1;
+            updateDisplay('握力',
+                'バックアップ？ない。俺の握力が失敗することはない。でももし万が一のことがあれば...お前だけでも逃げろ。',
+                [
+                    { text: '一緒に戦うと決意する', action: () => decideToFightTogether() },
+                    { text: '握力の実力を確認', action: () => requestGripDemo() }
+                ]
+            );
+        }
+
+        function decideToFightTogether() {
+            allyCount += 3;
+            updateDisplay('A木山',
+                '握力、僕も一緒に戦う。君一人に任せるわけにはいかない。',
+                [
+                    { text: '握力の反応を見る', action: () => seeGripReaction() }
+                ]
+            );
+        }
+
+        function seeGripReaction() {
+            allyCount += 2;
+            updateDisplay('握力',
+                'ありがとう、A木山。でもお前は安全な場所にいろ。俺の仕事は力仕事だ。お前の仕事は生き延びることだ。',
+                [
+                    { text: '握力の実力を確認', action: () => requestGripDemo() }
+                ]
+            );
+        }
+
+        function planDetails() {
+            allyCount += 1;
+            updateDisplay('握力',
+                '17時25分、みんながお前を連行し始める。俺は5分遅れで「見学」として合流。17時30分きっかりに、みんながお前の死を見守ってる瞬間を狙ってポールに接近。一気に粉砕する。',
+                [
+                    { text: '他のクラスメイトの反応を予想', action: () => predictClassmateReactions() },
+                    { text: '計画に問題がないか確認', action: () => checkPlanProblems() },
+                    { text: '授業に戻る', action: () => returnToClass() }
+                ]
+            );
+        }
+
+        function predictClassmateReactions() {
+            allyCount += 1;
+            updateDisplay('握力',
+                'O血合は血を見れなくて発狂、まQはQuality演出が台無しで混乱、O村は観察対象を失って茫然...みんなパニックになる。その隙にお前は逃げろ。',
+                [
+                    { text: '計画に同意する', action: () => agreeToPlan() },
+                    { text: '授業に戻る', action: () => returnToClass() }
+                ]
+            );
+        }
+
+        function agreeToPlan() {
+            allyCount += 2;
+            updateDisplay('A木山',
+                'わかった、握力。君の計画に全てを賭ける。',
+                [
+                    { text: '授業に戻る', action: () => returnToClass() }
+                ]
+            );
+        }
+
+        function checkPlanProblems() {
+            allyCount += 1;
+            updateDisplay('A木山',
+                '計画に問題はないか？町の人たちも大勢いるし、警察も来るかもしれない...',
+                [
+                    { text: '握力の対策を聞く', action: () => hearGripCountermeasures() }
+                ]
+            );
+        }
+
+        function hearGripCountermeasures() {
+            allyCount += 2;
+            updateDisplay('握力',
+                '問題ない。俺の握力なら人間も軽く投げ飛ばせる。警察が来ても関係ない。呪いが解ければ、みんな正気に戻る。',
+                [
+                    { text: '計画に同意する', action: () => agreeToPlan() }
+                ]
+            );
+        }
+
+        function discussRisk() {
+            allyCount += 1;
+            updateDisplay('A木山',
+                '他のクラスメイトに気づかれたらどうする？特にK山はずっと撮影してるし...',
+                [
+                    { text: '握力の対策を聞く', action: () => askRiskManagement() }
+                ]
+            );
+        }
+
+        function askRiskManagement() {
+            allyCount += 2;
+            updateDisplay('握力',
+                'カメラなんて握り潰してやる。みんなが興奮に夢中になってる時が狙い目だ。俺は冷静に行動する。',
+                [
+                    { text: '計画に同意する', action: () => agreeToPlan() }
+                ]
+            );
+        }
+
+        function returnToClass() {
+            suspicionLevel += 1;
+            changeAtmosphere('tension');
+            updateDisplay('',
+                '教室に戻ると、クラス全員が僕を見つめている。黒板には『D木山の1日のスケジュール』が書かれていて、『17:30 死亡予定』と赤字で書かれている。',
+                [
+                    { text: '授業を普通に受ける', action: () => attendClass() },
+                    { text: 'スケジュールについて質問する', action: () => askAboutSchedule() }
+                ]
+            );
+        }
+
+              function askAboutSchedule() {
+            suspicionLevel += 2;
+            updateDisplay('担任',
+                'あら、君のスケジュールよ♪ 17時30分に死ぬまでの詳細なタイムテーブル♪ 16時：最後の授業、17時：連行開始、17時25分：自転車乗車、17時30分：死亡♪ 完璧でしょ♪',
+                [
+                    { text: 'タイムテーブルに抗議する', action: () => protestSchedule() },
+                    { text: '授業を受ける', action: () => attendClass() }
+                ]
+            );
+        }
+
+        function protestSchedule() {
+            suspicionLevel += 3;
+            changeAtmosphere('danger');
+            updateDisplay('A木山',
+                'そんなスケジュール勝手に決めるな！僕は死なない！',
+                [
+                    { text: 'クラス全員に説得される', action: () => persuadedByClass() }
+                ]
+            );
+        }
+
+        function persuadedByClass() {
+            suspicionLevel += 2;
+            updateDisplay('クラス全員',
+                'A木山〜♪ 現実を受け入れよう〜♪ 抵抗しても無駄だよ〜♪',
+                [
+                    { text: '授業を受ける', action: () => attendClass() }
+                ]
+            );
+        }
+
+        function attendClass() {
+            suspicionLevel += 2;
+            updateDisplay('担任',
+                '今日の授業は特別編『美しい死に方講座』です。A木山くん、前に出て模擬実演をしてください♪ みんなで君の死に方を研究しましょう♪',
+                [
+                    { text: '拒否する', action: () => refuseDemo() },
+                    { text: '仕方なく前に出る', action: () => reluctantDemo() },
+                    { text: '教室から逃げ出す', action: () => escapeClassroom() }
+                ]
+            );
+        }
+
+        function refuseDemo() {
+            suspicionLevel += 3;
+            changeAtmosphere('danger');
+            updateDisplay('担任',
+                '拒否？困りますね♪ みんな〜、A木山くんが協力してくれないので、強制的に前に出してもらいましょう♪',
+                [
+                    { text: 'クラス全員に囲まれる', action: () => surroundedByClassAgain() }
+                ]
+            );
+        }
+
+        function surroundedByClassAgain() {
+            suspicionLevel += 2;
+            updateDisplay('クラス全員',
+                'A木山〜♪ 逃げちゃダメ〜♪ 死の練習をしよう〜♪',
+                [
+                    { text: '握力に助けを求める目配せ', action: () => signalGrip() },
+                    { text: '必死に抵抗する', action: () => resistDesperately() },
+                    { text: '諦めて従う', action: () => submitToDemo() }
+                ]
+            );
+        }
+
+        function signalGrip() {
+            allyCount += 1;
+            updateDisplay('握力',
+                '（他のクラスメイトに気づかれないよう小さく首を振る）今はダメだ、我慢しろ。',
+                [
+                    { text: '握力の指示に従う', action: () => followGripAdvice() },
+                    { text: '自力で何とかする', action: () => submitToDemo() }
+                ]
+            );
+        }
+
+        function followGripAdvice() {
+            allyCount += 1;
+            updateDisplay('A木山',
+                'わかった...今は耐えよう。握力の計画を信じて。',
+                [
+                    { text: '死の練習に参加する', action: () => submitToDemo() }
+                ]
+            );
+        }
+
+        function resistDesperately() {
+            suspicionLevel += 2;
+            updateDisplay('A木山',
+                '離せ！僕は絶対に死なない！',
+                [
+                    { text: '結局押し切られる', action: () => submitToDemo() }
+                ]
+            );
+        }
+
+        function submitToDemo() {
+            suspicionLevel += 2;
+            updateDisplay('担任',
+                'よろしい♪ では、自転車に乗ってポールに向かって走る練習をしましょう♪ みんなで君の死に様をチェックして、改善点をアドバイスしてあげます♪',
+                [
+                    { text: '練習に参加する', action: () => participateInPractice() },
+                    { text: '昼休みまで時間を稼ぐ', action: () => stallForTime() }
+                ]
+            );
+        }
+
+        function participateInPractice() {
+            suspicionLevel += 2;
+            updateDisplay('',
+                '校庭に出て、実際に自転車に乗らされる。クラス全員が見守る中、ポールに向かって走る練習。ブレーキをかけても効かない...本当に細工されてる！',
+                [
+                    { text: 'ブレーキの細工を指摘する', action: () => pointOutBrakeTampering() },
+                    { text: '練習を続ける振りをする', action: () => pretendToPractice() },
+                    { text: '自転車から飛び降りる', action: () => jumpOffBike() }
+                ]
+            );
+        }
+
+        function pointOutBrakeTampering() {
+            suspicionLevel += 3;
+            changeAtmosphere('danger');
+            updateDisplay('K山',
+                'あ、バレちゃった♪ そうよ、ブレーキワイヤー切ってあるの♪ ハンドルも固定してあるし、タイヤの空気圧も調整済み♪ 完璧な死亡マシーンよ♪',
+                [
+                    { text: '他にどんな細工があるか聞く', action: () => askOtherSabotage() },
+                    { text: '時間を稼ぐ', action: () => stallForTime() }
+                ]
+            );
+        }
+
+        function askOtherSabotage() {
+            suspicionLevel += 2;
+            updateDisplay('土Y',
+                'サドルには特別な呪いのシールを貼ったの♪ ペダルには滑り止めの逆バージョン♪ チェーンも特定のタイミングで外れるように調整済み♪ 完璧でしょ♪',
+                [
+                    { text: '時間を稼ぐ', action: () => stallForTime() }
+                ]
+            );
+        }
+
+        function stallForTime() {
+            suspicionLevel += 1;
+            updateDisplay('A木山',
+                'ちょっと待ってください。心の準備が...',
+                [
+                    { text: '時間稼ぎを続ける', action: () => continueStalling() },
+                    { text: '諦めて練習に参加', action: () => participateInPractice() }
+                ]
+            );
+        }
+
+        function continueStalling() {
+            suspicionLevel += 1;
+            updateDisplay('担任',
+                'まあ、仕方ないわね♪ でも昼休みには必ず練習よ♪',
+                [
+                    { text: '時間の経過を待つ', action: () => waitForTime() }
+                ]
+            );
+        }
+
+        function waitForTime() {
+            updateDisplay('',
+                '時計の針が進む。14時...15時...16時...運命の17時30分が刻一刻と近づいている。',
+                [
+                    { text: '時間の経過を見守る', action: () => watchTimePass() }
+                ]
+            );
+        }
+
+        function watchTimePass() {
+            updateDisplay('',
+                '16時30分...あと1時間。クラスメイトたちの興奮が最高潮に達している。',
+                [
+                    { text: '17時を待つ', action: () => waitFor5PM() }
+                ]
+            );
+        }
+
+        function attemptFinalEscape() {
+            escapeAttempts += 3;
+            changeAtmosphere('danger');
+            updateDisplay('A木山',
+                '最後の脱出を試みる！窓から飛び降りて逃げよう！',
+                [
+                    { text: '窓から脱出を試みる', action: () => tryWindowEscape() }
+                ]
+            );
+        }
+
+        function tryWindowEscape() {
+            escapeAttempts += 2;
+            updateDisplay('',
+                '窓から飛び降りようとしたが...なぜか体が動かない。呪いの力で逃げられないようになっている！',
+                [
+                    { text: '諦めて17時を待つ', action: () => waitFor5PM() }
+                ]
+            );
+        }
+
+        function resistFinalEscort() {
+            escapeAttempts += 2;
+            updateDisplay('A木山',
+                '嫌だ！僕は行かない！',
+                [
+                    { text: '力づくで連行される', action: () => forcedEscort() }
+                ]
+            );
+        }
+
+        function forcedEscort() {
+            suspicionLevel += 2;
+            updateDisplay('クラス全員',
+                'A木山〜♪ 抵抗しても無駄よ〜♪ みんなで運んであげる〜♪',
+                [
+                    { text: '電柱に向かう', action: () => headToPole() }
+                ]
+            );
+        }
+
+        function submitToEscort() {
+            suspicionLevel += 1;
+            updateDisplay('A木山',
+                'わかった...もう逃げられないんだな。でも握力の計画に最後の希望を託す。',
+                [
+                    { text: '電柱に向かう', action: () => headToPole() }
+                ]
+            );
+        }
+
+        function checkSurroundings() {
+            updateDisplay('',
+                '周囲を見回すと、全校生徒約500人、町の人々約200人が集まっている。まさに町全体のイベント。カメラを持つ人、お弁当を持参する家族連れ、物売りまでいる。',
+                [
+                    { text: '握力がいるか探す', action: () => lookForGrip() },
+                    { text: '自転車に乗るよう促される', action: () => promptedToBike() }
+                ]
+            );
+        }
+
+        function promptedToBike() {
+            updateDisplay('校長',
+                'さあA木山くん、自転車に乗って♪ みんな待ってるのよ♪',
+                [
+                    { text: '握力を探す', action: () => lookForGrip() },
+                    { text: '自転車に乗る', action: () => getOnBike() }
+                ]
+            );
+        }
+
+        function tryAlone() {
+            escapeAttempts += 2;
+            updateDisplay('A木山',
+                '握力がいないなら自分で何とかするしかない！',
+                [
+                    { text: '自転車を拒否する', action: () => refuseBike() },
+                    { text: 'ポールを自分で破壊しようとする', action: () => tryDestroyPoleAlone() }
+                ]
+            );
+        }
+
+        function refuseBike() {
+            escapeAttempts += 1;
+            updateDisplay('A木山',
+                '僕は自転車に乗らない！',
+                [
+                    { text: '強制的に乗せられる', action: () => forcedToBike() }
+                ]
+            );
+        }
+
+        function forcedToBike() {
+            suspicionLevel += 2;
+            updateDisplay('全員',
+                'A木山〜♪ 自転車に乗らなきゃダメよ〜♪',
+                [
+                    { text: '自転車に乗せられる', action: () => getOnBike() }
+                ]
+            );
+        }
+
+        function tryDestroyPoleAlone() {
+            escapeAttempts += 2;
+            updateDisplay('A木山',
+                'ポールを破壊してやる！',
+                [
+                    { text: '素手でポールを叩く', action: () => punchPole() }
+                ]
+            );
+        }
+
+        function punchPole() {
+            updateDisplay('',
+                'ポールを素手で叩いたが、びくともしない。手だけが痛くなった...',
+                [
+                    { text: '諦めて自転車に乗る', action: () => getOnBike() }
+                ]
+            );
+        }
+
+        // 残りの補完関数
+        function talkTo3rdYear() {
+            suspicionLevel += 2;
+            updateDisplay('3年生',
+                'D木山くんか...ご愁傷様。俺たちは君の死後処理班だ。死体の運搬とか、血の清掃とか、そういう汚れ仕事を担当してる。',
+                [
+                    { text: '死後処理について詳しく聞く', action: () => askPostMortemProcessing() },
+                    { text: '教室に向かう', action: () => rushToClassroomWorried() }
+                ]
+            );
+        }
+
+        function askPostMortemProcessing() {
+            suspicionLevel += 2;
+            updateDisplay('3年生',
+                '君が死んだ後、俺たちが現場を片付ける。血を洗い流して、壊れた自転車を処分して、何事もなかったかのようにする。30年間やってきた手慣れた作業だ。',
+                [
+                    { text: '教室に向かう', action: () => rushToClassroomWorried() }
+                ]
+            );
+        }
+
+        function ignoreAndRush() {
+            suspicionLevel += 1;
+            updateDisplay('',
+                '生徒たちを無視して急いで教室に向かった...',
+                [
+                    { text: '教室に到着', action: () => rushToClassroomWorried() }
+                ]
+            );
+        }
+
+               function askAboutKiyamaEvent() {
+            suspicionLevel += 3;
+            changeAtmosphere('danger');
+            updateDisplay('1年生',
+                '10年に一度の学校最大のイベントです！全校生徒が参加して、木山の死を観賞するんです！先生たちも楽しみにしてるし、町の人たちも見に来るんですよ！',
+                [
+                    { text: '町の人も知ってるのか確認', action: () => confirmTownInvolvement() },
+                    { text: '先生たちの役割を聞く', action: () => askTeacherRoles() },
+                    { text: '教室に向かう', action: () => rushToClassroomWorried() }
+                ]
+            );
+        }
+
+        function confirmTownInvolvement() {
+            suspicionLevel += 2;
+            updateDisplay('1年生',
+                'もちろんです！町長さんも来るし、商店街の人たちもお弁当作って持参するんです！木山の死は町全体のお祭りなんです！だから逃げても無駄ですよ♪',
+                [
+                    { text: '教室に向かう', action: () => rushToClassroomWorried() }
+                ]
+            );
+        }
+
+        function askTeacherRoles() {
+            suspicionLevel += 2;
+            updateDisplay('1年生',
+                '担任の先生は司会進行、校長先生は開会宣言、体育の先生は君を自転車まで連行する係です！みんな張り切ってますよ！',
+                [
+                    { text: '教室に向かう', action: () => rushToClassroomWorried() }
+                ]
+            );
+        }
+
+        function askAboutPhotos() {
+            suspicionLevel += 2;
+            updateDisplay('1年生',
+                '死体の写真を色んな角度から撮影するんです！後で学校の記念館に展示するんですよ！歴代の木山の写真もあります！',
+                [
+                    { text: '記念館について聞く', action: () => askAboutMemorialHall() },
+                    { text: '教室に向かう', action: () => rushToClassroomWorried() }
+                ]
+            );
+        }
+
+        function askAboutMemorialHall() {
+            suspicionLevel += 2;
+            updateDisplay('1年生',
+                '学校の地下に『木山記念館』があるんです！歴代木山の遺品と写真が展示されてます！君の写真も今日から仲間入りですね！',
+                [
+                    { text: '教室に向かう', action: () => rushToClassroomWorried() }
+                ]
+            );
+        }
+
+        function leaveQuickly() {
+            updateDisplay('',
+                'その場を素早く離れた...',
+                [
+                    { text: '教室に向かう', action: () => rushToClassroomWorried() }
+                ]
+            );
+        }
+
+        function askAboutBlood() {
+            suspicionLevel += 2;
+            changeAtmosphere('danger');
+            updateDisplay('O血合',
+                '血液型によって血の美しさが違うのよ♪ A型は流れ方が優雅なの♪ 特に頭から流れる時は...あ、言い過ぎちゃった♪ でも大丈夫、あと数時間で実際に見られるから♪',
+                [
+                    { text: '詳細を問い詰める', action: () => demandDetails() },
+                    { text: '他の生徒も知ってるのか聞く', action: () => askAboutOthers() },
+                    { text: '教室に向かう', action: () => rushToClassroomWorried() }
+                ]
+            );
+        }
+
+        function demandDetails() {
+            suspicionLevel += 3;
+            changeAtmosphere('tension');
+            updateDisplay('O血合',
+                '知りたがりね♪ でも教えてあげる♪ 今日の17時30分、君は自転車で帰る途中、電柱13番にぶつかって死ぬの♪ みんなで君の血を観賞するの♪ 30年に一度のお祭りよ♪',
+                [
+                    { text: '30年前の話を聞く', action: () => askAbout30Years() },
+                    { text: 'なぜ自分が狙われるのか聞く', action: () => askWhyMe() },
+                    { text: '教室に向かう', action: () => rushToClassroomWorried() }
+                ]
+            );
+        }
+
+        function askAbout30Years() {
+            suspicionLevel += 2;
+            updateDisplay('O血合',
+                '30年前にA木山太郎、20年前にB木山花子、10年前にC木山一郎♪ みんな同じ電柱で美しく死んだの♪ そして今日は君の番♪ 学校の伝統なのよ♪',
+                [
+                    { text: '伝統を破る方法を探る', action: () => askBreakTradition() },
+                    { text: '教室に向かう', action: () => rushToClassroomWorried() }
+                ]
+            );
+        }
+
+        function askBreakTradition() {
+            suspicionLevel += 1;
+            updateDisplay('O血合',
+                '破る？無理無理♪ でも...握力だけは何か企んでるみたいよ♪ あの子、変なこと言ってたから♪ まあ、無駄だと思うけど♪',
+                [
+                    { text: '握力について詳しく聞く', action: () => askAboutGrip() },
+                    { text: '教室に向かう', action: () => rushToClassroomWorried() }
+                ]
+            );
+        }
+
+        function askAboutGrip() {
+            allyCount += 1;
+            updateDisplay('O血合',
+                '握力が「ポールを破壊すれば呪いが解ける」とか言ってたの♪ バカみたい♪ でも彼の握力は本物よ♪ 120kgのダンベルを握り潰したことがあるから♪',
+                [
+                    { text: '握力に会いに行くことを決意', action: () => decideToMeetGrip() },
+                    { text: '教室に向かう', action: () => rushToClassroomWorried() }
+                ]
+            );
+        }
+
+        function decideToMeetGrip() {
+            allyCount += 2;
+            updateDisplay('A木山',
+                '握力が鍵になるかもしれない...彼に会って詳しく話を聞こう！',
+                [
+                    { text: '体育館で握力を探す', action: () => headToGym() },
+                    { text: '教室に向かう', action: () => rushToClassroomWorried() }
+                ]
+            );
+        }
+
+        function askWhyMe() {
+            suspicionLevel += 2;
+            updateDisplay('O血合',
+                '君が木山だからよ♪ 10年おきに木山が死ぬのが決まりなの♪ 30年前から続く美しい伝統♪ 君はその4人目よ♪',
+                [
+                    { text: '伝統について詳しく聞く', action: () => askAboutTradition() },
+                    { text: '教室に向かう', action: () => rushToClassroomWorried() }
+                ]
+            );
+        }
+
+        function askAboutTradition() {
+            suspicionLevel += 2;
+            updateDisplay('O血合',
+                '神様との約束なのよ♪ 10年おきに木山を捧げれば、町は平和になる♪ だから町のみんなも協力してるの♪',
+                [
+                    { text: '教室に向かう', action: () => rushToClassroomWorried() }
+                ]
+            );
+        }
+
+        function askAboutOthers() {
+            suspicionLevel += 2;
+            updateDisplay('O血合',
+                'もちろん♪ 学校中が知ってるわよ♪ みんな君の死を楽しみにしてるの♪ 特にクラスメイトは特別な役割があるのよ♪',
+                [
+                    { text: '特別な役割について聞く', action: () => askSpecialRoles() },
+                    { text: '教室に向かう', action: () => rushToClassroomWorried() }
+                ]
+            );
+        }
+
+        function askSpecialRoles() {
+            suspicionLevel += 2;
+            updateDisplay('O血合',
+                'まQは演出係、O村は観察係、O蔵は保管係、K山は撮影係、土Yは呪い係♪ そして握力は...あれ？握力だけ役割が決まってないわね♪',
+                [
+                    { text: '握力について詳しく聞く', action: () => askAboutGrip() },
+                    { text: '教室に向かう', action: () => rushToClassroomWorried() }
+                ]
+            );
+        }
+
+        function investigateOKetsugo() {
+            suspicionLevel += 2;
+            updateDisplay('A木山',
+                'O血合、君はなぜそんなに血に執着するんだ？',
+                [
+                    { text: 'O血合の過去を聞く', action: () => askOKetsugoPast() },
+                    { text: '教室に向かう', action: () => rushToClassroomWorried() }
+                ]
+            );
+        }
+
+        function askOKetsugoPast() {
+            suspicionLevel += 2;
+            updateDisplay('O血合',
+                '10年前のC木山の血を見た時から虜になったの♪ あの美しい赤...今度は君の血で同じ感動を味わいたいの♪',
+                [
+                    { text: '教室に向かう', action: () => rushToClassroomWorried() }
+                ]
+            );
+        }
+
+        function leaveOKetsugo() {
+            updateDisplay('',
+                'O血合から離れて教室に向かった...',
+                [
+                    { text: '教室に向かう', action: () => rushToClassroomWorried() }
+                ]
+            );
+        }
+
+        function runFromOKetsugo() {
+            escapeAttempts += 1;
+            updateDisplay('',
+                'O血合から逃げようとしたが、背後から「逃げちゃダメ〜♪」という声が...',
+                [
+                    { text: '教室に向かう', action: () => rushToClassroomWorried() }
+                ]
+            );
+        }
+
+        function ignoreOKetsugo() {
+            suspicionLevel += 1;
+            updateDisplay('',
+                'O血合を無視して花束を調べ続けた...',
+                [
+                    { text: '花束を詳しく調べる', action: () => investigateFlowersDeep() }
+                ]
+            );
+        }
+
+        function askToSeePhoto() {
+            suspicionLevel += 3;
+            changeAtmosphere('danger');
+            updateDisplay('担任',
+                'もちろん♪ ほら、この遺影♪ とても良く撮れてるでしょ？君が死んだ後の顔を想像して作ったのよ♪',
+                [
+                    { text: '遺影の詳細を見る', action: () => examinePortrait() },
+                    { text: 'クラスメイトに話しかける', action: () => talkToClassmates() }
+                ]
+            );
+        }
+
+        function examinePortrait() {
+            suspicionLevel += 2;
+            updateDisplay('A木山',
+                'これ...僕の顔だけど、目が閉じてて、まるで本当に死んでるみたいだ...不気味すぎる！',
+                [
+                    { text: 'クラスメイトに話しかける', action: () => talkToClassmates() }
+                ]
+            );
+        }
+
+        function askToSeeCoffin() {
+            suspicionLevel += 3;
+            changeAtmosphere('danger');
+            updateDisplay('担任',
+                '棺桶は体育館の倉庫にあるのよ♪ 君のサイズにピッタリ合わせて作ってもらったの♪ 死んだらすぐに入れてあげる♪',
+                [
+                    { text: 'クラスメイトに話しかける', action: () => talkToClassmates() }
+                ]
+            );
+        }
+
+        function askEulogyContent() {
+            suspicionLevel += 2;
+            updateDisplay('担任',
+                '「D木山は美しく死にました。彼の死は無駄ではありませんでした。神様もお喜びでしょう」みたいな感じよ♪ もう暗記しちゃった♪',
+                [
+                    { text: '神様について詳しく聞く', action: () => askAboutGod() },
+                    { text: 'クラスメイトに話しかける', action: () => talkToClassmates() }
+                ]
+            );
+        }
+
+        function askAboutGod() {
+            suspicionLevel += 2;
+            updateDisplay('担任',
+                '町の守り神よ♪ 30年前に怒らせちゃったから、定期的に木山を捧げて機嫌を取ってるの♪ おかげで町は平和よ♪',
+                [
+                    { text: 'クラスメイトに話しかける', action: () => talkToClassmates() }
+                ]
+            );
+        }
+
+        function protestMemorial() {
+            suspicionLevel += 3;
+            changeAtmosphere('tension');
+            updateDisplay('A木山',
+                '僕の追悼式の準備なんてやめろ！僕は死なない！',
+                [
+                    { text: '担任に説得される', action: () => persuadedByTeacher() }
+                ]
+            );
+        }
+
+        function persuadedByTeacher() {
+            suspicionLevel += 2;
+            updateDisplay('担任',
+                'A木山くん、現実を受け入れなさい♪ 君の運命は決まってるのよ♪ 抵抗しても無駄だから♪',
+                [
+                    { text: 'クラスメイトに話しかける', action: () => talkToClassmates() }
+                ]
+            );
+        }
+
+              function askWhyDecided() {
+            suspicionLevel += 2;
+            updateDisplay('まQ',
+                '30年前から決まってることだから♪ Quality（質）の高い伝統は変えられないの♪ 君もQuality（質）の高い死で伝統に貢献してね♪',
+                [
+                    { text: '伝統を変える方法を聞く', action: () => askChangeMethod() },
+                    { text: '他のクラスメイトに話しかける', action: () => talkToOthers() }
+                ]
+            );
+        }
+
+        function askChangeMethod() {
+            suspicionLevel += 1;
+            updateDisplay('まQ',
+                '変える？Quality（質）の低い発想ね♪ でも握力だけは何か企んでるみたい♪ あの子、Quality（質）より力を信じてるから♪',
+                [
+                    { text: '握力について詳しく聞く', action: () => askAboutGrip() },
+                    { text: '他のクラスメイトに話しかける', action: () => talkToOthers() }
+                ]
+            );
+        }
+
+        function askOtherPerformances() {
+            suspicionLevel += 2;
+            updateDisplay('まQ',
+                '他にもQuality（質）の高い演出がたくさん♪ 特別な照明、香り、そして最後は花火♪ 君の死をQuality（質）の高いショーにしてあげる♪',
+                [
+                    { text: '花火について詳しく聞く', action: () => askAboutFireworks() },
+                    { text: 'O村に話しかける', action: () => talkToOMura() }
+                ]
+            );
+        }
+
+        function askAboutFireworks() {
+            suspicionLevel += 2;
+            updateDisplay('まQ',
+                '君が死んだ瞬間に打ち上げる特別な花火よ♪ 『D木山追悼花火』♪ Quality（質）の高いフィナーレになるでしょ♪',
+                [
+                    { text: 'O村に話しかける', action: () => talkToOMura() }
+                ]
+            );
+        }
+
+        function askPastObservations() {
+            suspicionLevel += 3;
+            changeAtmosphere('danger');
+            updateDisplay('O村',
+                'A木山太郎：頭蓋骨粉砕、脳漿飛散♪ B木山花子：頸椎損傷、即死♪ C木山一郎：全身打撲、内臓破裂♪ どれも美しいデータだった♪ 君はどんなデータを残してくれるかな♪',
+                [
+                    { text: 'データの保存方法を聞く', action: () => askDataStorage() },
+                    { text: 'O蔵に話しかける', action: () => talkToOZou() }
+                ]
+            );
+        }
+
+        function askDataStorage() {
+            suspicionLevel += 2;
+            updateDisplay('O村',
+                '全部デジタル化して保存してあるよ♪ 写真、動画、測定データ、全部♪ 君のデータも永遠に保存される♪ 不滅の記録よ♪',
+                [
+                    { text: 'O蔵に話しかける', action: () => talkToOZou() }
+                ]
+            );
+        }
+
+        function pretendToPractice() {
+            suspicionLevel += 1;
+            updateDisplay('A木山',
+                '練習の振りをしながら、何か対策を考えよう...',
+                [
+                    { text: '昼休みまで演技を続ける', action: () => continueActing() }
+                ]
+            );
+        }
+
+        function continueActing() {
+            suspicionLevel += 1;
+            updateDisplay('',
+                '練習を続ける振りをしながら、握力の計画に希望を託す...',
+                [
+                    { text: '時間を稼ぐ', action: () => stallForTime() }
+                ]
+            );
+        }
+
+        function jumpOffBike() {
+            suspicionLevel += 2;
+            updateDisplay('A木山',
+                '自転車から飛び降りた！',
+                [
+                    { text: 'クラスメイトに取り押さえられる', action: () => restrainedByClassmates() }
+                ]
+            );
+        }
+
+        function restrainedByClassmates() {
+            suspicionLevel += 2;
+            updateDisplay('クラス全員',
+                'A木山〜♪ 逃げちゃダメ〜♪ 練習は大事よ〜♪',
+                [
+                    { text: '時間を稼ぐ', action: () => stallForTime() }
+                ]
+            );
+        }
+
+        function reluctantDemo() {
+            suspicionLevel += 1;
+            updateDisplay('A木山',
+                '仕方ない...前に出よう。でも心の中では握力の計画に希望を託している。',
+                [
+                    { text: '死の練習をする', action: () => practiceDeathScene() }
+                ]
+            );
+        }
+
+        function practiceDeathScene() {
+            suspicionLevel += 2;
+            updateDisplay('担任',
+                'よろしい♪ では最期のセリフの練習をしましょう♪ 「く、空気がない......」を感情込めて言ってください♪',
+                [
+                    { text: '仕方なく練習する', action: () => reluctantlyPractice() },
+                    { text: '拒否する', action: () => refusePractice() }
+                ]
+            );
+        }
+
+        function reluctantlyPractice() {
+            suspicionLevel += 1;
+            updateDisplay('A木山',
+                '「く、空気がない......」（これは練習だ...本番では握力が助けてくれる）',
+                [
+                    { text: '時間を稼ぐ', action: () => stallForTime() }
+                ]
+            );
+        }
+
+        function refusePractice() {
+            suspicionLevel += 2;
+            updateDisplay('A木山',
+                'そんなセリフは言わない！僕は死なない！',
+                [
+                    { text: 'クラスに説得される', action: () => persuadedByClass() }
+                ]
+            );
+        }
+
+        function escapeClassroom() {
+            escapeAttempts += 1;
+            updateDisplay('',
+                '教室から逃げ出したが、廊下で他のクラスの生徒たちに囲まれた！',
+                [
+                    { text: '教室に戻される', action: () => forcedBackToClass() }
+                ]
+            );
+        }
+
+        function forcedBackToClass() {
+            suspicionLevel += 2;
+            updateDisplay('他のクラスの生徒',
+                'A木山〜♪ 逃げちゃダメ〜♪ みんな君の死を楽しみにしてるのに♪',
+                [
+                    { text: '時間を稼ぐ', action: () => stallForTime() }
+                ]
+            );
+        }
+
+        function confrontChasers() {
+            escapeAttempts += 1;
+            updateDisplay('A木山',
+                'なぜみんな僕を殺そうとするんだ！',
+                [
+                    { text: '結局取り囲まれる', action: () => surroundedAgain() }
+                ]
+            );
+        }
+
+        function surroundedAgain() {
+            suspicionLevel += 2;
+            updateDisplay('クラスメイト',
+                'A木山〜♪ 運命には逆らえないよ〜♪',
+                [
+                    { text: '学校に入る', action: () => enterSchoolDefeated() }
+                ]
+            );
+        }
+
+        function hideFromChasers() {
+            escapeAttempts += 1;
+            updateDisplay('',
+                '茂みに隠れたが、すぐに見つかってしまった...',
+                [
+                    { text: '学校に入る', action: () => enterSchoolDefeated() }
+                ]
+            );
+        }
+
+        // 最終的にゲームを完結させるエンディング
+        console.log("ゲームスクリプト完成");
+    </script>
+</body>
+</html>
